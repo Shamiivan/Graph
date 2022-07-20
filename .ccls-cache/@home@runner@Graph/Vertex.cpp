@@ -1,4 +1,8 @@
 #include "Vertex.h";
+Vertex::Vertex(){
+	m_id=0;
+	m_value =0;
+}
 Vertex::Vertex(int id, int value){
   m_id = id;
   m_value = value;

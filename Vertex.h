@@ -7,7 +7,8 @@ private:
     int m_value;
     
 public:
-    Vertex(int id, int value); //constructor
+		Vertex (); // default constructor
+    Vertex(int id, int value); //constructor with value
     Vertex(const Vertex& old_copy); //copy constructor
 
 
