@@ -1,0 +1,1 @@
+main.o: main.cpp DirectedGraph.h Graph.h Vertex.h Edge.h
