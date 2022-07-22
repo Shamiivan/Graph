@@ -9,10 +9,3 @@ public:
     ~DirectedGraph();
 };
 
-DirectedGraph::DirectedGraph(/* args */)
-{
-}
-
-DirectedGraph::~DirectedGraph()
-{
-}

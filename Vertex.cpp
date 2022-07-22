@@ -1,4 +1,4 @@
-#include "Vertex.h";
+#include "Vertex.h"
 Vertex::Vertex(){
 	m_id=0;
 	m_value =0;
