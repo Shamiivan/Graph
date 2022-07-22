@@ -1,5 +1,10 @@
 #include "Edge.h"
 
+Edge::Edge(){
+	start = nullptr;
+	end =nullptr;
+	weight =0;
+}
 Edge::Edge(Vertex *_start, Vertex *_end, double _weight){
 	start = _start;
 	end =_end;

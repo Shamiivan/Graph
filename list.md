@@ -17,15 +17,15 @@
 8. [] Solve issue: Destructor using delete keywords results in error "munmap_chunk(): invalid pointer" 
 
 # DirectedGraph
-1.  [] Write test for default constructor -Ivan
-3.  [] Implement default constructor -Ivan 
+1.  [x] Write test for default constructor -Ivan
+3.  [x] Implement default constructor -Ivan 
 4.  [] Write test for copy constructor
 5.  [] Implement copy construcor
-6.  [] Write test for add vertex method
-7.  [] Implement add vertex method
+6.  [x] Write test for add vertex method
+7.  [x] Implement add vertex method
 8.  [] ] write test for remove_vertex()
 9.  [] implement remove_vertex()
-10. [] write test for add_edge()
+10. [x] write test for add_edge()
 11. [] implement for add_edge()
 12. [] write test for remove_edge()
 13. [] implement remove_edge()
@@ -38,6 +38,7 @@
 20. [] implement to_string()
 21. [] write test for clean()
 22. [] implement clean()
+23. [] resolve issue , clean how constructor should be called
 
 
 //bonus questions

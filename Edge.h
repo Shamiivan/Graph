@@ -8,6 +8,7 @@ private:
   double weight;
 
 public:
+	Edge();
   Edge(Vertex *, Vertex *,
        double); // constructor makes sure that edge is always instantiated with 2
              // pointers to a starting pointer and end pointer

@@ -80,7 +80,7 @@ void test_edge_getters_and_setters() {
     // check if the starting vertex and the weight has changed n
     if (edge.get_start_ptr() == other_start &&
         edge.get_end_ptr() == other_end && edge.get_weight() == new_weight)
-      cout << " Class: Edge | Test : getters and setters | passed " << endl;
+      cout << "Class: Edge | Test : getters and setters | passed " << endl;
     else
       throw 505;
   } catch (int err) {
@@ -104,12 +104,41 @@ void test_constructor() {
   //
   try {
     DirectedGraph graph;
-    cout << "Class : DirectedGraph \tTest: initialiase constructor \t |PASSED ";
+    cout << "Class : DirectedGraph \tTest: initialiase constructor \t | PASSED \n";
   } catch (...) {
-    cout << "Class : DirectedGraph \tTest: initialiase constructor \t |FAILED ";
+    cout << "Class : DirectedGraph \tTest: initialiase constructor \t | FAILED \n";
   }
 }
 
+void test_add_vertex(){
+	try {
+	DirectedGraph graph;
+	Vertex v;
+	assert(graph.add_vertex(v) == true);
+	cout << "Class : DirectedGraph \tTest:Add a vertex  \t | PASSED \n";
+	} catch(...){
+		cout << "Class : DirectedGraph \tTest: add a vertex \t | FAILED \n";
+	} 	
+}
+
+
+void test_add_edge(){
+	Vertex v1;
+	Vertex v2;
+	Edge edge(&v1,&v2,0.5);
+
+	DirectedGraph graph;
+	try{
+	if(graph.add_edge(edge) == true && graph.get_num_edges() == 1)
+			cout << "Class : DirectedGraph \tTest: add a edge \t | PASSED\n";
+	else 
+		throw 505;
+	
+	} catch(int e){
+		cout << "Class : DirectedGraph \tTest: add a edge \t | FAILED \n";
+	}
+	
+}
 int main(int argc, char const *argv[]) {
 
   test_vertex_constructor();
@@ -119,5 +148,7 @@ int main(int argc, char const *argv[]) {
   test_edge_getters_and_setters();
 
   test_constructor();
+	test_add_vertex();
+	test_add_edge();
   return 0;
 }

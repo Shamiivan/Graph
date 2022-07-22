@@ -2,20 +2,33 @@
 
 DirectedGraph::DirectedGraph(){
 	vertices = new Vertex[LIST_SIZE];
+	edges = new Edge[LIST_SIZE];
 	num_edges =0;
 	num_vertices =0;
 }
 
 
 
-
-// virtual bool add_vertex(Vertex &v) = 0;
+bool DirectedGraph::add_vertex(Vertex &v){
+	vertices[num_vertices] = v;
+	num_vertices++;
+	return true;
+}
 // virtual bool add_Vertecices(Vertex *vArray); // add in a set of vertices;
 
 // virtual bool remove_vertex(int vertex_id) = 0;
 
 // // edges
-// virtual bool add_edge(Edge &e) = 0;
+bool DirectedGraph::add_edge(Edge &e){
+	edges[num_edges] = e;
+	num_edges++;
+	return true;
+}
+
+
+int DirectedGraph::get_num_edges(){return num_edges;}
+
+int DirectedGraph::get_num_vertices(){return num_vertices;}
 // virtual bool add_edges(Edge &eArray) = 0;
 
 // virtual bool remove_edge(Edge &e) = 0;
