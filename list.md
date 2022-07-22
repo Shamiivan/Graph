@@ -8,9 +8,9 @@
 
 # Edges
 1. [x] Write test for constructor -Ivan
-2. [] implement constructor -Mina
-3. [] Write test for getters and setters -Ivan
-4. [] Implement getters and setters -Mina
+2. [x] implement constructor -Mina
+3. [x] Write test for getters and setters -Ivan
+4. [x] Implement getters and setters -Mina
 5. [] Implement desctructor -Ivan
 6. [] Make sure an edge always gets initiated with 2 pointers
 7. [] Write test for constructor
