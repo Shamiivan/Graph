@@ -71,10 +71,9 @@ void test_edge_getters_and_setters() {
     double new_weight = 10;
 
     Edge edge(startPtr, endPtr, weight);
-    edge.set_start_ptr(other_start); // change the pointer of the starting
-                                     // Vertex to anotherVertex
-    edge.set_end_ptr(other_end); // change the pointer of the starting Vertex to
-                                 // anotherVertex
+    edge.set_vertices(other_start,
+                      other_end); // change the pointer of the starting
+                                  // Vertex to anotherVertex
     edge.set_weight(new_weight);
 
     // check if the starting vertex and the weight has changed n
@@ -88,11 +87,15 @@ void test_edge_getters_and_setters() {
   }
 }
 
-void make_graph(DirectedGraph &graph) {
+void populate_graph(DirectedGraph &graph) {
+  // fill graph with a lot of vertices and edges
   // used
   // create array of Vertex
-  for (int i{0}; i < 20; i++) {
-    Vertex *v = new Vertex(i, i * 5);
+  static int start = 0;
+  int end = start + 20;
+  for (int i = start; i < end; i++) {
+    Vertex v(i, i * 5);
+    graph.add_vertex(v);
   }
   // Add the vertecies to graph
 
@@ -104,40 +107,78 @@ void test_constructor() {
   //
   try {
     DirectedGraph graph;
-    cout << "Class : DirectedGraph \tTest: initialiase constructor \t | PASSED \n";
+    cout << "Class : DirectedGraph \tTest: initialiase constructor \t | PASSED "
+            "\n";
   } catch (...) {
-    cout << "Class : DirectedGraph \tTest: initialiase constructor \t | FAILED \n";
+    cout << "Class : DirectedGraph \tTest: initialiase constructor \t | FAILED "
+            "\n";
   }
 }
 
-void test_add_vertex(){
-	try {
-	DirectedGraph graph;
-	Vertex v;
-	assert(graph.add_vertex(v) == true);
-	cout << "Class : DirectedGraph \tTest:Add a vertex  \t | PASSED \n";
-	} catch(...){
-		cout << "Class : DirectedGraph \tTest: add a vertex \t | FAILED \n";
-	} 	
+void test_copy_constructor() {
+  DirectedGraph graph;
+  Vertex v1(50, 40);
+  populate_graph(graph); // add 20 vertices to the graph
+  try {
+    DirectedGraph copied_graph(graph);
+    if (graph.search_vertex(v1) == true && graph.get_num_vertices() == 21)
+      cout << "Class : DirectedGraph \tTest: Initialisation using copy "
+              "constructor\t| PASSED \n";
+    else
+      throw 505;
+  } catch (int e) {
+    cout << "Class : DirectedGraph \tTest: Initialisatiton using copy "
+            "constructor\t| FAILED \n";
+  }
+}
+void test_add_vertex() {
+  try {
+    DirectedGraph graph;
+    Vertex v;
+    assert(graph.add_vertex(v) == true);
+    cout << "Class : DirectedGraph \tTest:Add a vertex  \t | PASSED \n";
+  } catch (...) {
+    cout << "Class : DirectedGraph \tTest: add a vertex \t | FAILED \n";
+  }
 }
 
+void test_add_edge() {
+  Vertex v1;
+  Vertex v2;
+  Edge edge(&v1, &v2, 0.5);
 
-void test_add_edge(){
-	Vertex v1;
-	Vertex v2;
-	Edge edge(&v1,&v2,0.5);
+  DirectedGraph graph;
+  try {
+    if (graph.add_edge(edge) == true && graph.get_num_edges() == 1
+			&&graph.search_vertex(v1) ==true && graph.search_vertex(v2) ==true) // adding an edge means adding vertices if they are not already there
+      cout << "Class : DirectedGraph \tTest: add an edge \t | PASSED\n";
+    else
+      throw 505;
 
-	DirectedGraph graph;
-	try{
-	if(graph.add_edge(edge) == true && graph.get_num_edges() == 1)
-			cout << "Class : DirectedGraph \tTest: add a edge \t | PASSED\n";
-	else 
-		throw 505;
-	
-	} catch(int e){
-		cout << "Class : DirectedGraph \tTest: add a edge \t | FAILED \n";
-	}
-	
+  } catch (int e) {
+    cout << "Class : DirectedGraph \tTest: add an edge \t | FAILED \n";
+  }
+}
+
+void test_search_vertex() {
+  DirectedGraph graph;
+
+  populate_graph(graph); // add 20 vertices in graph
+  Vertex v(50, 60);      // vertex to be added in graph
+  Vertex v2(56, 69);     // this vertex will not be added in graph
+  graph.add_vertex(v);
+  populate_graph(graph);
+
+  try {
+    if (graph.search_vertex(v) == true && graph.search_vertex(v2) == false)
+      cout << "Class : DirectedGraph \tTest: search for a vertex \t | PASSED\n";
+    else
+      throw 505;
+  } catch (int e) {
+    cout << "Class : DirectedGraph \tTest: search for a vertex \t | FAILED\n";
+  }
+
+  cout << "Num of v" << graph.get_num_vertices();
 }
 int main(int argc, char const *argv[]) {
 
@@ -148,7 +189,9 @@ int main(int argc, char const *argv[]) {
   test_edge_getters_and_setters();
 
   test_constructor();
-	test_add_vertex();
-	test_add_edge();
+  test_add_vertex();
+  test_add_edge();
+
+  test_search_vertex();
   return 0;
 }

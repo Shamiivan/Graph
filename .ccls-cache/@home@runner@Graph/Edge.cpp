@@ -27,5 +27,4 @@ Edge::~Edge() {
 
 	//setters
   void Edge::set_weight(int w){weight =w;}
-  void Edge::set_start_ptr(Vertex *s){start = s;} 
-  void Edge::set_end_ptr(Vertex *e){end =e;}
+  void Edge::set_vertices(Vertex *s, Vertex *e){start = s; end = e;}

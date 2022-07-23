@@ -20,5 +20,5 @@ public:
 	bool add_vertex(Vertex&);
 	bool add_edge(Edge&);
 
-
+	bool search_vertex(const Vertex&);
 };

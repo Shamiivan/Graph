@@ -22,8 +22,7 @@ public:
 
   // setters
   void set_weight(int w);
-  void set_start_ptr(Vertex *s);
-  void set_end_ptr(Vertex *e);
+  void set_vertices(Vertex *s, Vertex*e); // takes two argument to insure that an edge has always 2 vertex
 };
 
 #endif
