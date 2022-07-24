@@ -87,16 +87,16 @@ void populate_graph(DirectedGraph &graph) {
   static int id = 0; // used to make sure the id are always different when the
                      // function is called
   static int val = 2;
-  Vertex v1(++id, val *=2);
-  Vertex v2(++id, val *=2);
-  Vertex v3(++id, val *=2);
-  Vertex v4(++id, val *=2);
-  Vertex v5(++id, val *=2);
-  Vertex v6(++id, val *=2);
-  Vertex v7(++id, val *=2);
-  Vertex v8(++id, val *=2);
-  Vertex v9(++id, val *=2);
-  Vertex v10(++id, val *=2);
+  Vertex v1(id+=1, val *=2);
+  Vertex v2(id+=2, val *=2);
+  Vertex v3(id+=3, val *=2);
+  Vertex v4(id+=4, val *=2);
+  Vertex v5(id+=5, val *=2);
+  Vertex v6(id+=6, val *=2);
+  Vertex v7(id+=7, val *=2);
+  Vertex v8(id+=8, val *=2);
+  Vertex v9(id+=9, val *=2);
+  Vertex v10(id+=10, val *=2);
 
   // create edges
   Edge e1(&v1, &v2, 0.2);
@@ -145,9 +145,6 @@ void test_copy_constructor() {
   DirectedGraph graph;
   Vertex v1(50, 40);
   populate_graph(graph); // add 20 vertices to the graph
-	cout << "Num of edges and graphs: " << graph.get_num_edges() << "\t" << graph.get_num_vertices()<< "\n";
-	cout <<"##############################################################\n";
-	graph.display();
   try {
     DirectedGraph copy(graph);
     if (copy.search_vertex(v1) == true && copy.get_num_vertices() == 21)
@@ -205,6 +202,13 @@ void test_search_vertex() {
     cout << "Class : DirectedGraph \tTest: search for a vertex \t | FAILED\n";
   }
 }
+
+
+void display(){
+	DirectedGraph graph;
+	populate_graph(graph);
+	graph.display();
+}
 int main(int argc, char const *argv[]) {
 
   test_vertex_constructor();
@@ -213,12 +217,14 @@ int main(int argc, char const *argv[]) {
   test_edge_constructor();
   test_edge_getters_and_setters();
 
-  // graph
+
   test_constructor();
 	test_copy_constructor();
   test_add_vertex();
   test_add_edge();
 
   test_search_vertex();
+
+	// display();
   return 0;
 }
