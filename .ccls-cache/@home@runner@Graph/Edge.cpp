@@ -20,12 +20,12 @@ Edge::~Edge(){
 };
 
 // getters
-double Edge::get_weight() { return weight; }
-Vertex* Edge::get_startPtr() { return startPtr; }
-Vertex* Edge::get_endPtr() { return endPtr; }
+double Edge::get_weight()const { return weight; }
+Vertex* Edge::get_startPtr()const { return startPtr; }
+Vertex* Edge::get_endPtr()const { return endPtr; }
 
 // setters
-void Edge::set_weight(int w) { weight = w; }
+void Edge::set_weight(double w) { weight = w; }
 void Edge::set_vertices(Vertex *s, Vertex *e) {
   startPtr = s;
   endPtr = e;

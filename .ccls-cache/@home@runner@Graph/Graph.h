@@ -23,11 +23,11 @@ class Graph{
         virtual bool add_edge(Edge &e) =0;
         // virtual bool add_edges(Edge &eArray) =0;
 
-        // virtual bool remove_edge(Edge& e) =0;
+        virtual bool remove_edge(Edge& e) =0;
 
         virtual bool search_vertex(const Vertex &v) =0; //return bool if a vertex exist in a graph;
 
-        // virtual bool search_edge(const Edge &e) =0; //return bool if edges exist in a graph;
+        virtual bool search_edge(const Edge &e) =0; //return bool if edges exist in a graph;
 
         // virtual void display(Vertex &v) =0; //display the path that contains the vert
 

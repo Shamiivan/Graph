@@ -6,15 +6,17 @@ DirectedGraph::DirectedGraph() {
   num_edges = 0;
   num_vertices = 0;
 }
+int DirectedGraph::get_num_edges() { return num_edges; }
+int DirectedGraph::get_num_vertices() { return num_vertices - 1; }
 
 bool DirectedGraph::add_vertex(Vertex &v) {
-	if(search_vertex(v) == true){
-		return false;
-	}else if(search_vertex(v)==false){
-  vertices[num_vertices] = v;
-  num_vertices++;
-  return true;
-	}
+  if (search_vertex(v) == true) {
+    return false;
+  } else if (search_vertex(v) == false) {
+    vertices[num_vertices] = v;
+    num_vertices++;
+    return true;
+  }
 }
 // virtual bool add_Vertecices(Vertex *vArray); // add in a set of vertices;
 
@@ -22,52 +24,78 @@ bool DirectedGraph::add_vertex(Vertex &v) {
 
 // // edges
 bool DirectedGraph::add_edge(Edge &e) {
-  // get the id of the vertices connected by the edge;
-  // int start_id = e.get_startPtr()->get_id();
-  // int start_value = e.get_startPtr()->get_value();
+  // add using deep copy, otherwise the edge added will have pointers to
+  // external
+  Vertex start(*e.get_startPtr()); // make a copy of the starting vertex
+  Vertex end(*e.get_endPtr());     // make a copy of the ending vertex
+  double weight = e.get_weight();
 
-  // int end_id = e.get_endPtr()->get_id();
-  // int end_value = e.get_endPtr()->get_value();
-	Vertex start(*e.get_startPtr());//make a copy of the starting vertex
-	Vertex end(*e.get_endPtr());//make a copy of the ending vertex
-	double weight= e.get_weight();
-	
-	Vertex *startPtr; //be used to 
-	Vertex *endPtr;
+  Vertex *startPtr; // used to store the pointers of the vertex in graph
+  Vertex *endPtr;
 
   // check if the vertives already exist in the graph
-	if(search_vertex(start) ==false){
-		add_vertex(start); //if they dont
-		startPtr = (vertices + (num_vertices-1));
-	}else if (search_vertex(start) == true){
-		for(int i{0}; i <=num_vertices;i++){
-			if(vertices[i].get_id() == start.get_id() && vertices[i].get_value() ==start.get_value()){
-				startPtr = (vertices + i);	
-			}		
-		}
-	}
-	if(search_vertex(end) ==false){
-		add_vertex(end); //if they dont
-		endPtr = (vertices + (num_vertices-1));
-	}else if (search_vertex(end) == true){
-		for(int i{0}; i <=num_vertices;i++){
-			if(vertices[i].get_id() == start.get_id() && vertices[i].get_value() ==start.get_value()){
-				endPtr = (vertices + i);	
-			}		
-		}
-	}
+  if (search_vertex(start) == false) {
+    add_vertex(start);
+    startPtr = (vertices + (num_vertices - 1));
+  } else if (search_vertex(start) == true) {
+    for (int i{0}; i <= num_vertices; i++) {
+      if (vertices[i].get_id() == start.get_id() &&
+          vertices[i].get_value() == start.get_value()) {
+        startPtr = (vertices + i);
+      }
+    }
+  }
+  if (search_vertex(end) == false) {
+    add_vertex(end); // if they dont
+    endPtr = (vertices + (num_vertices - 1));
+  } else if (search_vertex(end) == true) {
+    for (int i{0}; i <= num_vertices; i++) {
+      if (vertices[i].get_id() == start.get_id() &&
+          vertices[i].get_value() == start.get_value()) {
+        endPtr = (vertices + i);
+      }
+    }
+  }
 
-
-	//add the edge to the graph
-	Edge new_edge(startPtr,endPtr,weight);
+  // add the edge to the graph
+  Edge new_edge(startPtr, endPtr, weight);
   edges[num_edges] = new_edge;
   num_edges++;
   return true;
 }
 
-int DirectedGraph::get_num_edges() { return num_edges; }
+bool DirectedGraph::remove_edge(Edge &edge) {
 
-int DirectedGraph::get_num_vertices() { return num_vertices-1; }
+  // display();
+  // if (search_edge(edge) == false) { // make sure edge is in the graph
+  //   return false;
+  // } else {
+  //   int start_id = edge.get_startPtr()->get_id();
+  //   int end_id = edge.get_endPtr()->get_id();
+  //   double w = edge.get_weight();
+
+  //   for (int i{0}; i < num_edges; i++) {
+  //     if (edges[i].get_startPtr()->get_id() == start_id &&
+  //         edges[i].get_endPtr()->get_id() == end_id &&
+  //         edges[i].get_weight() == w)
+  //       // swap the last edge to this one,
+  //       std::cout << "I've found the chosen one\n";
+  //     edges[i] =
+  //         edges[num_edges - 1]; // can be done since the array is not orderd
+  //     edges[num_edges - 1].set_vertices(nullptr, nullptr);
+  //     edges[num_edges - 1].set_weight(0);
+  //     num_edges--;
+  //     display();
+  //     return true;
+  //   }
+  // }
+
+	int index = search_edge_index(edge);//index of the edge
+	edges[index] = edges[num_edges-1];
+	num_edges--;
+
+	return true;
+}
 
 bool DirectedGraph::search_vertex(const Vertex &v) {
   for (int i{0}; i <= num_vertices; i++) {
@@ -78,9 +106,52 @@ bool DirectedGraph::search_vertex(const Vertex &v) {
   }
   return false;
 };
+
+bool DirectedGraph::search_edge(const Edge &edge) {
+  if (edge.get_startPtr() == nullptr && edge.get_endPtr() == nullptr) {
+    return false;
+  } else {
+    // 2 edges with the same start id, end id and weights are considered
+    // indetical
+    int start_id = edge.get_startPtr()->get_id();
+    int end_id = edge.get_endPtr()->get_id();
+    double w = edge.get_weight();
+    for (int i{0}; i < num_edges; i++) {
+      if (edges[i].get_startPtr()->get_id() == start_id &&
+          edges[i].get_endPtr()->get_id() == end_id &&
+          edges[i].get_weight() == w)
+        return true;
+    }
+    return false;
+  }
+}
+
+int DirectedGraph::search_edge_index(const Edge &edge) {
+  // returns the index of an edge in array of edges
+  int index = -1;
+  if (edge.get_startPtr() == nullptr && edge.get_endPtr() == nullptr) {
+    return index;
+  } else {
+    // 2 edges with the same start id, end id and weights are considered
+    // indetical
+    int start_id = edge.get_startPtr()->get_id();
+    int end_id = edge.get_endPtr()->get_id();
+    double w = edge.get_weight();
+    for (int i{0}; i < num_edges; i++) {
+      if (edges[i].get_startPtr()->get_id() == start_id &&
+          edges[i].get_endPtr()->get_id() == end_id &&
+          edges[i].get_weight() == w) {
+        index = i;
+      }
+    }
+  }
+  return index;
+}
 // virtual bool add_edges(Edge &eArray) = 0;
 
-// virtual bool remove_edge(Edge &e) = 0;
+// bool remove_edge(Edge &e){
+
+// }
 
 // virtual bool
 // search_vertex(const Vertex &v) = 0; // return bool if a vertex exist in a
@@ -95,18 +166,19 @@ bool DirectedGraph::search_vertex(const Vertex &v) {
 // virtual void display() = 0; // display the path that contains the edge;
 
 // virtual void
-void DirectedGraph::display() const{
+void DirectedGraph::display() const {
   std::cout << "Displaying graph:\n";
   std::cout << "Vertices: " << num_vertices << "\n";
   for (int i{0}; i < num_vertices; i++)
     std::cout << "Id: " << vertices[i].get_id() << "\tValue: "
-			
+
               << vertices[i].get_value() << "\n";
 
   std::cout << "Number of edges: " << num_edges << "\n";
-	// int n=1;
-	// std::cout << edges[n].get_startPtr()->get_id()<< "\t"  << edges[n].get_endPtr()->get_id()<< "\n";
-	
+  // int n=1;
+  // std::cout << edges[n].get_startPtr()->get_id()<< "\t"  <<
+  // edges[n].get_endPtr()->get_id()<< "\n";
+
   for (int i{0}; i < num_edges; i++) {
     int start_id = edges[i].get_startPtr()->get_id();
     int start_value = edges[i].get_startPtr()->get_value();
@@ -126,12 +198,11 @@ void DirectedGraph::display() const{
 //                        ';'
 
 // virtual bool clean() = 0; // remove all the vertices and edges
-// // removing the vertex itself is done but it is required to remove the
+// removing the vertex itself is done but it is required to remove the
 // edges that are connected to this vertex. but I don't know how to know which
 // edges to remove given a vertex ??! so can you add the code to remove the
 // edges that are connected to the removed vertex. i
-// bool remove_vertex(int
-// vertex_id){
+// bool remove_vertex(int vertex_id){
 //   int index = 0;
 //   bool found = false;
 //   for(int i = 0; i < numvertices, i++){
@@ -148,8 +219,6 @@ void DirectedGraph::display() const{
 //   return true;
 // }else {return false}
 
-// };
-// bool remove_edge(Edge& e);
 // };
 
 // bool clean(){

@@ -18,7 +18,13 @@ public:
 
 
 	bool add_vertex(Vertex&);
+	bool remove_vertex(Vertex&);
+
 	bool add_edge(Edge&);
+	bool remove_edge(Edge&);
+	bool search_edge(const Edge&); //returns true if an edge is the graph
+	int search_edge_index(const Edge&); //returns the position of an edge in the graph
+	
 
 	bool search_vertex(const Vertex&);
 

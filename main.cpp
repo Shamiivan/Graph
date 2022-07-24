@@ -144,10 +144,12 @@ void test_constructor() {
 void test_copy_constructor() {
   DirectedGraph graph;
   Vertex v1(50, 40);
-  populate_graph(graph); // add 20 vertices to the graph
+  populate_graph(graph); //add ten vertices and 11 edges
   try {
     DirectedGraph copy(graph);
-    if (copy.search_vertex(v1) == true && copy.get_num_vertices() == 21)
+    if (copy.search_vertex(v1) == true 
+			&& copy.get_num_vertices() == 11
+			&& copy.get_num_edges() == 11)
       cout << "Class : DirectedGraph \tTest: Initialisation using copy "
               "constructor\t| PASSED \n";
     else
@@ -160,10 +162,13 @@ void test_copy_constructor() {
 void test_add_vertex() {
   try {
     DirectedGraph graph;
-    Vertex v;
-    assert(graph.add_vertex(v) == true);
-    cout << "Class : DirectedGraph \tTest:Add a vertex  \t | PASSED \n";
-  } catch (...) {
+    Vertex v(4,10);
+		graph.add_vertex(v);
+		if(graph.search_vertex(v) ==true)
+	    cout << "Class : DirectedGraph \tTest:Add a vertex  \t | PASSED \n";
+		else 
+			throw 505;
+  } catch (int e) {
     cout << "Class : DirectedGraph \tTest: add a vertex \t | FAILED \n";
   }
 }
@@ -184,11 +189,31 @@ void test_add_edge() {
     cout << "Class : DirectedGraph \tTest: add an edge\t|FAILED \n";
   }
 }
+void test_remove_edge(){
+  DirectedGraph graph;
 
+  populate_graph(graph); // add 10 vertices and 11 edges
+  Vertex v(50, 60);      // vertex to be added in graph
+  Vertex v2(56, 69);  
+	Edge e1(&v,&v2, 0.5);
+  graph.add_edge(e1);
+	populate_graph(graph); //add 10 more vertices and 11edges
+	graph.remove_edge(e1);
+
+  try {
+    if (graph.search_edge(e1) == false && graph.get_num_edges() == 22)
+      cout << "Class : DirectedGraph \tTest: remove an edge \t | PASSED\n";
+    else
+      throw 505;
+  } catch (int e) {
+    cout << "Class : DirectedGraph \tTest: remove an edge \t | FAILED\n";
+  }
+	
+}
 void test_search_vertex() {
   DirectedGraph graph;
 
-  populate_graph(graph); // add 20 vertices in graph
+  populate_graph(graph); // add 10 vertices and 11 edges
   Vertex v(50, 60);      // vertex to be added in graph
   Vertex v2(56, 69);     // this vertex will not be added in graph
   graph.add_vertex(v);
@@ -200,6 +225,25 @@ void test_search_vertex() {
       throw 505;
   } catch (int e) {
     cout << "Class : DirectedGraph \tTest: search for a vertex \t | FAILED\n";
+  }
+}
+void test_search_edge() {
+  DirectedGraph graph;
+
+  populate_graph(graph); // add 10 vertices and 11 edges
+  Vertex v(50, 60);      // vertex to be added in graph
+  Vertex v2(56, 69);  
+	Edge e;
+	Edge e1(&v,&v2, 0.5);
+  graph.add_edge(e1);
+
+  try {
+    if (graph.search_edge(e1) == true && graph.search_edge(e) ==false)
+      cout << "Class : DirectedGraph \tTest: search for an edge \t | PASSED\n";
+    else
+      throw 505;
+  } catch (int e) {
+    cout << "Class : DirectedGraph \tTest: search for an edge \t | FAILED\n";
   }
 }
 
@@ -222,8 +266,10 @@ int main(int argc, char const *argv[]) {
 	test_copy_constructor();
   test_add_vertex();
   test_add_edge();
+	test_remove_edge();
 
   test_search_vertex();
+	test_search_edge();
 
 	// display();
   return 0;

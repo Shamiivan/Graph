@@ -15,12 +15,12 @@ public:
   ~Edge();
 
   // getters
-  double get_weight();
-  Vertex* get_startPtr();
-  Vertex* get_endPtr();
+  double get_weight()const;
+  Vertex* get_startPtr()const;
+  Vertex* get_endPtr()const;
 
   // setters
-  void set_weight(int w);
+  void set_weight(double w);
   void set_vertices(Vertex*,  Vertex*); // takes two argument to insure that an edge has always 2 vertex`
 };
 

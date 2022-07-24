@@ -33,8 +33,8 @@
 15. [] implement remove_edge() -Mina
 16. [x] write test for search_vertex()
 17. [x] implement search_vertex() -Mina
-18. [] write test for search_edge() -Mina
-19. [] implement search_edge()
+18. [x] write test for search_edge() -Mina
+19. [x] implement search_edge()
 20. [x] implement diplay()
 21. [] write test for to_string()
 22. [] implement to_string()
