@@ -7,7 +7,7 @@ DirectedGraph::DirectedGraph() {
   num_vertices = 0;
 }
 int DirectedGraph::get_num_edges() { return num_edges; }
-int DirectedGraph::get_num_vertices() { return num_vertices - 1; }
+int DirectedGraph::get_num_vertices() { return num_vertices; }
 
 bool DirectedGraph::add_vertex(Vertex &v) {
   if (search_vertex(v) == true) {
@@ -20,8 +20,25 @@ bool DirectedGraph::add_vertex(Vertex &v) {
 }
 // virtual bool add_Vertecices(Vertex *vArray); // add in a set of vertices;
 
-bool DirectedGraph::remove_vertex(Vertex &vertex){
-	return true;
+bool DirectedGraph::remove_vertex(Vertex &vertex) {
+  std::cout << "removing a vertex with id: " << vertex.get_id() << std::endl;
+  int index = search_vertex_index(vertex); //get the index of the vertex
+  if (index == -1)
+    return false;
+	
+  // if the there is an edge that is connected to this vertex, remove it
+  for (int i{0}; i < num_edges; i++) {
+    if (edges[i].has_vertex(vertex)) {
+      remove_edge(edges[i]);
+    }
+  }
+	
+  
+  vertices[index] = vertices[num_vertices - 1];
+  vertices[num_vertices - 1].set_id(0);
+  vertices[num_vertices - 1].set_value(0);
+  num_vertices--;
+  return true;
 }
 
 // // edges
@@ -67,11 +84,11 @@ bool DirectedGraph::add_edge(Edge &e) {
 }
 
 bool DirectedGraph::remove_edge(Edge &edge) {
- int index = search_edge_index(edge);//index of the edge
-	edges[index] = edges[num_edges-1];
-	num_edges--;
+  int index = search_edge_index(edge); // index of the edge
+  edges[index] = edges[num_edges - 1];
+  num_edges--;
 
-	return true;
+  return true;
 }
 
 bool DirectedGraph::search_vertex(const Vertex &v) {
@@ -82,6 +99,16 @@ bool DirectedGraph::search_vertex(const Vertex &v) {
     }
   }
   return false;
+};
+int DirectedGraph::search_vertex_index(const Vertex &v) {
+  int index = -1;
+  for (int i{0}; i <= num_vertices; i++) {
+    if (v.get_id() == vertices[i].get_id() &&
+        v.get_value() == vertices[i].get_value()) {
+      index = i;
+    }
+  }
+  return index;
 };
 
 bool DirectedGraph::search_edge(const Edge &edge) {
@@ -134,8 +161,6 @@ int DirectedGraph::search_edge_index(const Edge &edge) {
 // search_vertex(const Vertex &v) = 0; // return bool if a vertex exist in a
 // graph;
 
-
-
 void DirectedGraph::display() const {
   std::cout << "Displaying graph:\n";
   std::cout << "Vertices: " << num_vertices << "\n";
@@ -161,12 +186,9 @@ void DirectedGraph::display() const {
               << " and value: " << end_value << "\n";
   };
 }
-string DirectedGraph::to_string()const {
-   for (int i = 0; i < num_vertices; i++){
-     
-   }
-
-  
+string DirectedGraph::to_string() const {
+  for (int i = 0; i < num_vertices; i++) {
+  }
 }
 // virtual string
 // to_String() const = 0; // convert the whole graph to a string such as

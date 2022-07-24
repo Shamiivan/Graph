@@ -25,6 +25,7 @@ public:
   int search_edge_index(const Edge &); // returns the position of an edge in the graph
 
   bool search_vertex(const Vertex &);
+	int search_vertex_index(const Vertex&); //return the index of the vertex;
 
   string to_string() const;
   void display() const;
