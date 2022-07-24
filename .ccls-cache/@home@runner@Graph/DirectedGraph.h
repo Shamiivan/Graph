@@ -18,7 +18,7 @@ public:
 
 
 	bool add_vertex(Vertex&);
-	bool remove_vertex(Vertex&);
+  bool remove_vertex(Vertex &); 
 
 	bool add_edge(Edge&);
 	bool remove_edge(Edge&);

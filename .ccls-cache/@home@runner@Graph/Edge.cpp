@@ -30,3 +30,13 @@ void Edge::set_vertices(Vertex *s, Vertex *e) {
   startPtr = s;
   endPtr = e;
 }
+
+
+bool Edge::has_vertex(const Vertex &vertex){
+	if(vertex.get_id() == startPtr->get_id() && vertex.get_value() == startPtr->get_id())
+		return true;
+	else if(vertex.get_id() == endPtr->get_id() && vertex.get_value() == endPtr->get_value())
+		return true;
+	
+	return false;
+}

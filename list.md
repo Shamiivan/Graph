@@ -28,9 +28,8 @@
 9.  [] implement remove_vertex()
 10. [x] write test for add_edge()-Ivan
 12. [x] implement for add_edge()-Mina
-13. [] Implement a search by id method for verteics(must return pointer)
-14. [] write test for remove_edge()
-15. [] implement remove_edge() -Mina
+14. [x] write test for remove_edge()
+15. [x] implement remove_edge() -Mina
 16. [x] write test for search_vertex()
 17. [x] implement search_vertex() -Mina
 18. [x] write test for search_edge() -Mina

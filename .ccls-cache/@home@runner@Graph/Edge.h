@@ -16,12 +16,13 @@ public:
 
   // getters
   double get_weight()const;
-  Vertex* get_startPtr()const;
-  Vertex* get_endPtr()const;
+  Vertex *get_startPtr()const;
+  Vertex *get_endPtr()const;
 
   // setters
   void set_weight(double w);
   void set_vertices(Vertex*,  Vertex*); // takes two argument to insure that an edge has always 2 vertex`
+	bool has_vertex(const Vertex &); //return true if the edge is connected to the vertex
 };
 
 #endif

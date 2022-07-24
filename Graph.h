@@ -17,7 +17,7 @@ class Graph{
         virtual bool add_vertex(Vertex &v) =0;
         // virtual bool add_Vertecices(Vertex *vArray);// add in a set of vertices; 
 
-        // virtual bool remove_vertex(int vertex_id)=0;
+        virtual bool remove_vertex(Vertex &vertex)=0;
         
         // //edges
         virtual bool add_edge(Edge &e) =0;

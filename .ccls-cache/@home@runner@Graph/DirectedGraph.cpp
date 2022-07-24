@@ -20,7 +20,9 @@ bool DirectedGraph::add_vertex(Vertex &v) {
 }
 // virtual bool add_Vertecices(Vertex *vArray); // add in a set of vertices;
 
-// virtual bool remove_vertex(int vertex_id) = 0;
+bool DirectedGraph::remove_vertex(Vertex &vertex){
+	return true;
+}
 
 // // edges
 bool DirectedGraph::add_edge(Edge &e) {
@@ -65,32 +67,7 @@ bool DirectedGraph::add_edge(Edge &e) {
 }
 
 bool DirectedGraph::remove_edge(Edge &edge) {
-
-  // display();
-  // if (search_edge(edge) == false) { // make sure edge is in the graph
-  //   return false;
-  // } else {
-  //   int start_id = edge.get_startPtr()->get_id();
-  //   int end_id = edge.get_endPtr()->get_id();
-  //   double w = edge.get_weight();
-
-  //   for (int i{0}; i < num_edges; i++) {
-  //     if (edges[i].get_startPtr()->get_id() == start_id &&
-  //         edges[i].get_endPtr()->get_id() == end_id &&
-  //         edges[i].get_weight() == w)
-  //       // swap the last edge to this one,
-  //       std::cout << "I've found the chosen one\n";
-  //     edges[i] =
-  //         edges[num_edges - 1]; // can be done since the array is not orderd
-  //     edges[num_edges - 1].set_vertices(nullptr, nullptr);
-  //     edges[num_edges - 1].set_weight(0);
-  //     num_edges--;
-  //     display();
-  //     return true;
-  //   }
-  // }
-
-	int index = search_edge_index(edge);//index of the edge
+ int index = search_edge_index(edge);//index of the edge
 	edges[index] = edges[num_edges-1];
 	num_edges--;
 
@@ -157,15 +134,8 @@ int DirectedGraph::search_edge_index(const Edge &edge) {
 // search_vertex(const Vertex &v) = 0; // return bool if a vertex exist in a
 // graph;
 
-// virtual bool
-// search_edge(const Edge &e) = 0; // return bool if edges exist in a graph;
 
-// virtual void display(Vertex &v) = 0; // display the path that contains the
-// vert
 
-// virtual void display() = 0; // display the path that contains the edge;
-
-// virtual void
 void DirectedGraph::display() const {
   std::cout << "Displaying graph:\n";
   std::cout << "Vertices: " << num_vertices << "\n";
@@ -229,4 +199,5 @@ void DirectedGraph::display() const {
 //   for (int i = 0; i< numedges; i++){
 //   (edges + i) = nullptr;
 // }
-// }
+// return true;
+// };
