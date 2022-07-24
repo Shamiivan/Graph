@@ -41,9 +41,9 @@ void test_edge_constructor() {
     Vertex v2(2, 40);
     double weight = 0.4;
 
-    Edge edge(v1,v2,weight);
+    Edge edge(&v1,&v2,weight);
 
-    if (edge.get_start() == 1 && edge.get_end() == 2)
+    if (edge.get_startPtr()->get_id() == 1 && edge.get_endPtr()->get_id() == 2)
       cout << "Test :  Edge contructor initialisation: Passed" << endl;
     else
       throw 505;
@@ -66,15 +66,14 @@ void test_edge_getters_and_setters() {
     Vertex *other_end = new Vertex();
     double new_weight = 10;
 
-    Edge edge(*startPtr, *endPtr, weight);
-    edge.set_vertices(*other_start,
-                      *other_end); // change the pointer of the starting
+    Edge edge(startPtr, endPtr, weight);
+    edge.set_vertices(other_start, other_end); // change the pointer of the starting
                                   // Vertex to anotherVertex
     edge.set_weight(new_weight);
 
     // check if the starting vertex and the weight has changed n
-    if (edge.get_start() == other_start &&
-        edge.get_end() == other_end && edge.get_weight() == new_weight)
+    if (edge.get_startPtr() == other_start &&
+        edge.get_endPtr() == other_end && edge.get_weight() == new_weight)
       cout << "Class: Edge | Test : getters and setters | passed " << endl;
     else
       throw 505;
@@ -100,17 +99,17 @@ void populate_graph(DirectedGraph &graph) {
   Vertex v10(++id, val *=2);
 
   // create edges
-  Edge e1(v1, v2, 0.2);
-  Edge e2(v3, v4, 0.2);
-  Edge e3(v3, v10, 0.2);
-  Edge e4(v10,v9, 0.2);
-  Edge e5(v7, v3, 0.2);
-  Edge e6(v2, v9, 0.2);
-  Edge e7(v5, v7, 0.2);
-  Edge e8(v5, v1, 0.2);
-  Edge e9(v5, v2, 0.2);
-  Edge e10(v7, v9, 0.2);
-  Edge e11(v9, v6, 0.2);
+  Edge e1(&v1, &v2, 0.2);
+  Edge e2(&v3, &v4, 0.2);
+  Edge e3(&v3, &v10, 0.2);
+  Edge e4(&v10,&v9, 0.2);
+  Edge e5(&v7, &v3, 0.2);
+  Edge e6(&v2, &v9, 0.2);
+  Edge e7(&v5, &v7, 0.2);
+  Edge e8(&v5, &v1, 0.2);
+  Edge e9(&v5, &v2, 0.2);
+  Edge e10(&v7, &v9, 0.2);
+  Edge e11(&v9, &v6, 0.2);
 
   // add edges, adding edges add also the vertices they connect
   graph.add_edge(e1);
@@ -146,8 +145,8 @@ void test_copy_constructor() {
   DirectedGraph graph;
   Vertex v1(50, 40);
   populate_graph(graph); // add 20 vertices to the graph
-	cout << "Num of edges and graphs: " << graph.get_num_edges() << "\t" << graph.get_num_vertices();
-	cout <<"##############################################################";
+	cout << "Num of edges and graphs: " << graph.get_num_edges() << "\t" << graph.get_num_vertices()<< "\n";
+	cout <<"##############################################################\n";
 	graph.display();
   try {
     DirectedGraph copy(graph);

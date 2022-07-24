@@ -1,14 +1,14 @@
 #include "Edge.h"
 
 Edge::Edge() {
-  start = 0;
-  end = 0;
+  startPtr = nullptr;
+  endPtr = nullptr;
   weight = 0;
 }
 
-Edge::Edge(const Vertex &s, const Vertex &e, double _weight) {
-  start = s.get_id();
-  end = e.get_id();
+Edge::Edge(Vertex *s, Vertex *e, double _weight) {
+  startPtr = s;
+  endPtr = e;
 	weight = _weight;
 }
 Edge::Edge(Edge &old_copy) {
@@ -21,12 +21,12 @@ Edge::~Edge(){
 
 // getters
 double Edge::get_weight() { return weight; }
-int Edge::get_start() { return start; }
-int Edge::get_end() { return end; }
+Vertex* Edge::get_startPtr() { return startPtr; }
+Vertex* Edge::get_endPtr() { return endPtr; }
 
 // setters
 void Edge::set_weight(int w) { weight = w; }
-void Edge::set_vertices(const Vertex &s, const Vertex &e) {
-  start = s.get_id();
-  end = e.get_id();
+void Edge::set_vertices(Vertex *s, Vertex *e) {
+  startPtr = s;
+  endPtr = e;
 }

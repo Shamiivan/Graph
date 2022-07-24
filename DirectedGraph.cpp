@@ -19,29 +19,43 @@ bool DirectedGraph::add_vertex(Vertex &v) {
 // // edges
 bool DirectedGraph::add_edge(Edge &e) {
   // get the id of the vertices connected by the edge;
-  int start_id = e.get_start_ptr()->get_id();
-  int start_value = e.get_start_ptr()->get_value();
+  // int start_id = e.get_startPtr()->get_id();
+  // int start_value = e.get_startPtr()->get_value();
 
-  int end_id = e.get_end_ptr()->get_id();
-  int end_value = e.get_end_ptr()->get_value();
-
+  // int end_id = e.get_endPtr()->get_id();
+  // int end_value = e.get_endPtr()->get_value();
+	Vertex start(*e.get_startPtr());//make a copy of the starting vertex
+	Vertex end(*e.get_endPtr());//make a copy of the ending vertex
 	double weight= e.get_weight();
+	
+	Vertex *startPtr; //be used to 
+	Vertex *endPtr;
 
-  Vertex start = Vertex(start_id, start_value);
-  Vertex end = Vertex(end_id, end_value);
+  // check if the vertives already exist in the graph
+	if(search_vertex(start) ==false){
+		add_vertex(start); //if they dont
+		startPtr = (vertices + num_vertices);
+	}else if (search_vertex(start) == true){
+		for(int i{0}; i <=num_vertices;i++){
+			if(vertices[i].get_id() == start.get_id() && vertices[i].get_value() ==start.get_value()){
+				startPtr = (vertices + i);	
+			}		
+		}
+	}
+	if(search_vertex(end) ==false){
+		add_vertex(end); //if they dont
+		endPtr = (vertices + num_vertices);
+	}else if (search_vertex(end) == true){
+		for(int i{0}; i <=num_vertices;i++){
+			if(vertices[i].get_id() == start.get_id() && vertices[i].get_value() ==start.get_value()){
+				endPtr = (vertices + i);	
+			}		
+		}
+	}
 
-	Vertex *start_ptr;
-	Vertex *end_ptr;
 
-  // check if the vertives already exist in the array, if they dont add them
-	if(search_vertex(start) ==false)
-		add_vertex(start);
-  if (search_vertex(end) == false)
-    add_vertex(end);
-
-
-	//add the edge to edges
-	Edge new_edge(&start,&end,weight);
+	//add the edge to the graph
+	Edge new_edge(startPtr,endPtr,weight);
   edges[num_edges] = new_edge;
   num_edges++;
   return true;
@@ -86,10 +100,10 @@ void DirectedGraph::display() const{
 
   std::cout << "Number of edges: " << num_edges << "\n";
   for (int i{0}; i <= num_edges; i++) {
-    int start_id = edges[i].get_start_ptr()->get_id();
-    int start_value = edges[i].get_start_ptr()->get_value();
-    int end_id = edges[i].get_end_ptr()->get_id();
-    int end_value = edges[i].get_end_ptr()->get_value();
+    int start_id = edges[i].get_startPtr()->get_id();
+    int start_value = edges[i].get_startPtr()->get_value();
+    int end_id = edges[i].get_endPtr()->get_id();
+    int end_value = edges[i].get_endPtr()->get_value();
 
     std::cout << "Edge connects vertex with id" << start_id
               << " with value: " << start_value

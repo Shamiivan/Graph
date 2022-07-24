@@ -27,19 +27,20 @@
 8.  [] write test for remove_vertex()
 9.  [] implement remove_vertex()
 10. [x] write test for add_edge()-Ivan
-11. [x] implement for add_edge()-Mina
-12. [] write test for remove_edge()
-13. [] implement remove_edge() -Mina
-14. [x] write test for search_vertex()
-15. [x] implement search_vertex() -Mina
-16. [] write test for search_edge() -Mina
-17. [] implement search_edge()
-18. [x] implement diplay()
-19. [] write test for to_string()
-20. [] implement to_string()
-21. [x] write test for clean()
-22. [] implement clean() -
-23. [] resolve issue , clean how constructor should be called
+12. [x] implement for add_edge()-Mina
+13. [] Implement a search by id method for verteics(must return pointer)
+14. [] write test for remove_edge()
+15. [] implement remove_edge() -Mina
+16. [x] write test for search_vertex()
+17. [x] implement search_vertex() -Mina
+18. [] write test for search_edge() -Mina
+19. [] implement search_edge()
+20. [x] implement diplay()
+21. [] write test for to_string()
+22. [] implement to_string()
+23. [x] write test for clean()
+24. [] implement clean() -
+25. [] resolve issue , clean how constructor should be called
 
 
 //bonus questions
