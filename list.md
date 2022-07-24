@@ -26,15 +26,15 @@
 7.  [x] Implement add vertex method
 8.  [] write test for remove_vertex()
 9.  [] implement remove_vertex()
-10. [x] write test for add_edge()
-11. [x] implement for add_edge()
+10. [x] write test for add_edge()-Ivan
+11. [x] implement for add_edge()-Mina
 12. [] write test for remove_edge()
 13. [] implement remove_edge() -Mina
 14. [x] write test for search_vertex()
-15. [] implement search_vertex() -Mina
+15. [x] implement search_vertex() -Mina
 16. [] write test for search_edge() -Mina
 17. [] implement search_edge()
-18. [] implement diplay()
+18. [x] implement diplay()
 19. [] write test for to_string()
 20. [] implement to_string()
 21. [x] write test for clean()

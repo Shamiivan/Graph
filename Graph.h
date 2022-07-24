@@ -33,7 +33,7 @@ class Graph{
 
         // virtual void display() =0; //display the path that contains the edge;
         
-        // virtual void display() const =0; //display the whole graph with your iwn defined format
+        virtual void display() const =0; //display the whole graph with your iwn defined format
 
         // virtual string to_String() const =0; //convert the whole graph to a string such as 1-2-4--5; 1-3-4; note: each different path is separeted by a ';'
 

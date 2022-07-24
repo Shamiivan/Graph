@@ -17,7 +17,7 @@ Vertex::Vertex(const Vertex& old_copy){
 		int Vertex::get_id()const{
       return m_id;
     }; 
-		int Vertex::get_value(){
+		int Vertex::get_value()const{
       return m_value;
     };
 

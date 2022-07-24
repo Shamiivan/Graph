@@ -14,7 +14,7 @@ public:
 
     //getters/setters
 		int get_id()const;
-		int get_value();
+		int get_value()const;
 
 		void set_id(int id);
 		void set_value(int value);

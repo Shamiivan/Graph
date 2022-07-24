@@ -21,4 +21,6 @@ public:
 	bool add_edge(Edge&);
 
 	bool search_vertex(const Vertex&);
+
+	void display()const;
 };
