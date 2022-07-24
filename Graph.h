@@ -35,7 +35,8 @@ class Graph{
         
         virtual void display() const =0; //display the whole graph with your iwn defined format
 
-        // virtual string to_String() const =0; //convert the whole graph to a string such as 1-2-4--5; 1-3-4; note: each different path is separeted by a ';'
+        virtual string to_string() const =0; //convert the whole graph to a string such as 1-2-4--5; 1-3-4; note: each different path is separeted by a ';'
+
 
         // virtual bool clean() =0; //remove all the vertices and edges
 

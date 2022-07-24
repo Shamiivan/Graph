@@ -8,84 +8,9 @@ using namespace std;
 void test_vertex_constructor();
 void test_vertex_getters_and_setters();
 void test_edge_constructor();
-void test_edge_getters_and_setters() {
-  /// test the setter and getter for an edge
-  // it is assumed that if the getters and setters works for the starting
-  // starting vertext, it does for the ending one
-
-  try {
-    Vertex *startPtr = new Vertex();
-    Vertex *endPtr = new Vertex();
-    double weight = 40;
-
-    Vertex *other_start = new Vertex();
-    Vertex *other_end = new Vertex();
-    double new_weight = 10;
-
-    Edge edge(startPtr, endPtr, weight);
-    edge.set_vertices(other_start,
-                      other_end); // change the pointer of the starting
-                                  // Vertex to anotherVertex
-    edge.set_weight(new_weight);
-
-    // check if the starting vertex and the weight has changed n
-    if (edge.get_startPtr() == other_start && edge.get_endPtr() == other_end &&
-        edge.get_weight() == new_weight)
-      cout << "Class: Edge | Test : getters and setters | passed " << endl;
-    else
-      throw 505;
-  } catch (int err) {
-    cout << "Class: Edge | Test : getters and setters | failed " << endl;
-  }
-}
-
-void populate_graph(DirectedGraph &graph) {
-
-  static int id = 0; // used to make sure the id are always different when the
-                     // function is called
-  static int val = 2;
-  Vertex v1(id += 1, val *= 2);
-  Vertex v2(id += 2, val *= 2);
-  Vertex v3(id += 3, val *= 2);
-  Vertex v4(id += 4, val *= 2);
-  Vertex v5(id += 5, val *= 2);
-  Vertex v6(id += 6, val *= 2);
-  Vertex v7(id += 7, val *= 2);
-  Vertex v8(id += 8, val *= 2);
-  Vertex v9(id += 9, val *= 2);
-  Vertex v10(id += 10, val *= 2);
-
-  // create edges
-  Edge e1(&v1, &v2, 0.2);
-  Edge e2(&v3, &v4, 0.2);
-  Edge e3(&v3, &v10, 0.2);
-  Edge e4(&v10, &v9, 0.2);
-  Edge e5(&v7, &v3, 0.2);
-  Edge e6(&v2, &v9, 0.2);
-  Edge e7(&v5, &v7, 0.2);
-  Edge e8(&v5, &v1, 0.2);
-  Edge e9(&v5, &v2, 0.2);
-  Edge e10(&v7, &v9, 0.2);
-  Edge e11(&v9, &v6, 0.2);
-
-  // add edges, adding edges add also the vertices they connect
-  graph.add_edge(e1);
-  graph.add_edge(e2);
-  graph.add_edge(e3);
-  graph.add_edge(e4);
-  graph.add_edge(e5);
-  graph.add_edge(e6);
-  graph.add_edge(e7);
-  graph.add_edge(e8);
-  graph.add_edge(e9);
-  graph.add_edge(e10);
-  graph.add_edge(e11);
-
-  // add vertecis that are not connected by edges
-  graph.add_vertex(v4);
-  graph.add_vertex(v8);
-}
-
+void test_edge_getters_and_setters();
+void test_edge_has_vertex(); 
+void populate_graph(DirectedGraph &graph);
 void test_constructor() {
   //
   try {
@@ -225,24 +150,26 @@ void display() {
 
 int main(int argc, char const *argv[]) {
   try {
-    test_vertex_constructor();
-    test_vertex_getters_and_setters();
-		test_remove_vertex();
-    test_remove_edge();
+    // test_vertex_constructor();
+    // test_vertex_getters_and_setters();
+		// test_remove_vertex();
+    // test_remove_edge();
+
+  test_edge_constructor();
+  test_edge_getters_and_setters();
+	test_edge_has_vertex(); 
   } catch (const char *msg) {
     cout << msg;
   };
 
-  test_edge_constructor();
-  test_edge_getters_and_setters();
 
-  test_constructor();
-  test_copy_constructor();
-  test_add_vertex();
-  test_add_edge();
+  // test_constructor();
+  // test_copy_constructor();
+  // test_add_vertex();
+  // test_add_edge();
 
-  test_search_vertex();
-  test_search_edge();
+  // test_search_vertex();
+  // test_search_edge();
 
   // display();
   return 0;
@@ -286,3 +213,97 @@ void test_edge_constructor() {
     else
       throw "Class: Edge\tTest: initialiase constructor\t|FAILED";
 };
+
+void test_edge_getters_and_setters() {
+  /// test the setter and getter for an edge
+  // it is assumed that if the getters and setters works for the starting
+  // starting vertext, it does for the ending one
+
+    Vertex *startPtr = new Vertex();
+    Vertex *endPtr = new Vertex();
+    double weight = 40;
+
+    Vertex *other_start = new Vertex();
+    Vertex *other_end = new Vertex();
+    double new_weight = 10;
+
+    Edge edge(startPtr, endPtr, weight);
+    edge.set_vertices(other_start,
+                      other_end); // change the pointer of the starting
+                                  // Vertex to anotherVertex
+    edge.set_weight(new_weight);
+
+    // check if the starting vertex and the weight has changed n
+    if (edge.get_startPtr() == other_start && edge.get_endPtr() == other_end &&
+        edge.get_weight() == new_weight)
+      cout << "Class: Edge\tTest : getters and setterst\t|PASSED\n";
+    else
+      throw "Class: Edge\tTest : getters and setterst\t|FAILED\n";
+}
+
+void test_edge_has_vertex(){
+	Vertex v1(1,50);
+	Vertex v2(2,60);
+	Vertex v3(3,70);
+
+	Edge edge(&v1, &v2, 0.4);
+	if(edge.has_vertex(v1) ==true && edge.has_vertex(v2)==true && edge.has_vertex(v3)==false)
+		cout << "Class: Edge\tTest : has vertex\t|PASSED\n";
+	else
+		throw "Class: Edge\tTest : has vertex \t|FAILED\n";
+}
+
+
+
+
+
+
+
+
+
+void populate_graph(DirectedGraph &graph) {
+
+  static int id = 0; // used to make sure the id are always different when the
+                     // function is called
+  static int val = 2;
+  Vertex v1(id += 1, val *= 2);
+  Vertex v2(id += 2, val *= 2);
+  Vertex v3(id += 3, val *= 2);
+  Vertex v4(id += 4, val *= 2);
+  Vertex v5(id += 5, val *= 2);
+  Vertex v6(id += 6, val *= 2);
+  Vertex v7(id += 7, val *= 2);
+  Vertex v8(id += 8, val *= 2);
+  Vertex v9(id += 9, val *= 2);
+  Vertex v10(id += 10, val *= 2);
+
+  // create edges
+  Edge e1(&v1, &v2, 0.2);
+  Edge e2(&v3, &v4, 0.2);
+  Edge e3(&v3, &v10, 0.2);
+  Edge e4(&v10, &v9, 0.2);
+  Edge e5(&v7, &v3, 0.2);
+  Edge e6(&v2, &v9, 0.2);
+  Edge e7(&v5, &v7, 0.2);
+  Edge e8(&v5, &v1, 0.2);
+  Edge e9(&v5, &v2, 0.2);
+  Edge e10(&v7, &v9, 0.2);
+  Edge e11(&v9, &v6, 0.2);
+
+  // add edges, adding edges add also the vertices they connect
+  graph.add_edge(e1);
+  graph.add_edge(e2);
+  graph.add_edge(e3);
+  graph.add_edge(e4);
+  graph.add_edge(e5);
+  graph.add_edge(e6);
+  graph.add_edge(e7);
+  graph.add_edge(e8);
+  graph.add_edge(e9);
+  graph.add_edge(e10);
+  graph.add_edge(e11);
+
+  // add vertecis that are not connected by edges
+  graph.add_vertex(v4);
+  graph.add_vertex(v8);
+}
