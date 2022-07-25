@@ -11,8 +11,8 @@
 2. [x] implement constructor -Mina
 3. [x] Write test for getters and setters -Ivan
 4. [x] Implement getters and setters -Mina
-5. [] Implement desctructor -Ivan
-6. [] Make sure an edge always gets initiated with 2 pointers
+5. [x] Implement desctructor -Ivan
+6. [x] Make sure an edge always gets initiated with 2 pointers
 7. [] Write test for copy constructor
 8. [] Solve issue: Destructor using delete keywords results in error "munmap_chunk(): invalid pointer"
 9. [] solve issue: make an edge does not have one vertex

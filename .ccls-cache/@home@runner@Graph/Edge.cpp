@@ -13,10 +13,9 @@ Edge::Edge(Vertex *s, Vertex *e, double _weight) {
 }
 Edge::Edge(Edge &old_copy) {
   /// have to make deep copies
+	
 }
 Edge::~Edge(){
-    // delete start;
-    // delete end;
 };
 
 // getters

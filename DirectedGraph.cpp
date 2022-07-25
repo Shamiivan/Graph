@@ -19,6 +19,14 @@ DirectedGraph::DirectedGraph(const DirectedGraph &other){
 	for(int i{0}; i <num_edges; i++)
 		edges[i] =  other.edges[i];
 }
+
+DirectedGraph::~DirectedGraph(){
+	delete []vertices;
+	delete [] edges;
+	num_vertices = 0;
+	num_edges =0;	
+}
+
 int DirectedGraph::get_num_edges() { return num_edges; }
 int DirectedGraph::get_num_vertices() { return num_vertices; }
 
@@ -163,15 +171,6 @@ int DirectedGraph::search_edge_index(const Edge &edge) {
   }
   return index;
 }
-// virtual bool add_edges(Edge &eArray) = 0;
-
-// bool remove_edge(Edge &e){
-
-// }
-
-// virtual bool
-// search_vertex(const Vertex &v) = 0; // return bool if a vertex exist in a
-// graph;
 
 void DirectedGraph::display() const {
   std::cout << "Displaying graph:\n";
@@ -202,43 +201,30 @@ string DirectedGraph::to_string() const {
   for (int i = 0; i < num_vertices; i++) {
   }
 }
-// virtual string
-// to_String() const = 0; // convert the whole graph to a string such as
-// 1-2-4--5;
-//                        // 1-3-4; note: each different path is separeted by a
-//                        ';'
 
-// virtual bool clean() = 0; // remove all the vertices and edges
-// removing the vertex itself is done but it is required to remove the
-// edges that are connected to this vertex. but I don't know how to know which
-// edges to remove given a vertex ??! so can you add the code to remove the
-// edges that are connected to the removed vertex. i
-// bool remove_vertex(int vertex_id){
-//   int index = 0;
-//   bool found = false;
-//   for(int i = 0; i < numvertices, i++){
-//     if (vertex_id == *(vertices+i).get_id()){
-//     index = i;
-//     found = true;
-//     }
-//   }
-// if (found){
-//    for (int j = index; j<numvertices-1; j++){
-//     *(vertices+j) = *(vertices+j+1);
-//   }
-//   numvertices--;
-//   return true;
-// }else {return false}
+bool DirectedGraph::clean(){
+	delete []vertices;
+	delete [] edges;
 
-// }
+	vertices = new Vertex[LIST_SIZE];
+	edges = new Edge[LIST_SIZE];
+	num_vertices = 0;
+	num_edges =0;
+	return true;
+}
 
-// bool clean(){
-// for (int i = 0; i< numvertices; i++){
-//   (vertices + i) = nullptr;
-// }
 
-//   for (int i = 0; i< numedges; i++){
-//   (edges + i) = nullptr;
-// }
-// return true;
-// }
+bool DirectedGraph::add_vertices(Vertex *vArray, int size){
+
+	for(int i{0}; i <= size; i++){
+		add_vertex(vArray[i]);
+	}
+	return true;
+}
+
+ bool DirectedGraph::add_edges(Edge *eArray, int size){
+for (int i =0 ; i <= size; i++){
+  add_edge(eArray[i]);
+}
+  return true;
+}

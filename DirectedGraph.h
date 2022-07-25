@@ -12,6 +12,7 @@ private:
 public:
   DirectedGraph();
 	DirectedGraph(const DirectedGraph &); // copy constructor;
+	~DirectedGraph();
 	
 
   // getters and setters
@@ -31,4 +32,7 @@ public:
 
   string to_string() const;
   void display() const;
+
+	bool clean();
+	bool add_vertices(Vertex *vArray, int size);// add in a set of vertices; 
 };

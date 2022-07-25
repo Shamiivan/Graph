@@ -22,8 +22,14 @@ void test_search_vertex();
 void test_search_edge();
 void test_search_v_index();
 void test_string();
+void test_clean();
+
+//bonuses
+void test_add_vertices();
+void test_add_edges();
 int main(int argc, char const *argv[]) {
   try {
+		test_add_vertices();//add multiples vertices
 		//tests related to Edge and Vertex class
     test_vertex_constructor();
     test_vertex_getters_and_setters();
@@ -45,6 +51,7 @@ int main(int argc, char const *argv[]) {
     test_search_v_index();
     test_remove_vertex();
 
+		test_clean();
     cout << "All test pass\n";
   } catch (const char *msg) {
     cout << msg;
@@ -252,24 +259,57 @@ void test_search_v_index() {
           "index\t|FAILED\n";
 }
 
-void test_string(){
-	DirectedGraph graph;
-	Vertex v1(1,10);
-	Vertex v2(2,20);
-	Vertex v3(3,30);
-	Vertex v4(4,40);
-	Vertex v5(5,50);
-	Vertex v6(6,60);
-	Vertex v7(7,70);
+void test_clean(){
+ 	DirectedGraph graph;
+	populate_graph(graph);
+	Vertex v1(1,40);
+	Vertex v2(2,80);
+	Edge e(&v1,&v2,0.5);
+	graph.add_edge(e);
+	graph.clean();
 
-	Edge e1(&v1,&v2,0.5);
-	Edge e2(&v2,&v3,0.5);
-	Edge e3(&v1,&v2,0.5);
-	Edge e1(&v1,&v2,0.5);
-	Edge e1(&v1,&v2,0.5);
-	Edge e1(&v1,&v2,0.5);
-	Edge e1(&v1,&v2,0.5);
-	Edge e1(&v1,&v2,0.5);
+	if(graph.get_num_edges() ==0 && graph.get_num_vertices() == 0 
+		&& graph.search_vertex(v1) == false  
+		&& graph.search_edge(e) ==false)
+			cout << "Class: DirectedGraph\tTest: clean method\t|PASSED\n";
+	else
+		throw "Class: DirectedGraph\tTest: clean method\t|FAILED\n";
+}
+
+void test_add_vertices(){
+	DirectedGraph graph;
+	int size = 4;
+	Vertex *vArray = new Vertex[size];
+	for(int i{0}; i<=size;i++){
+		Vertex v(i,i*2);
+		vArray[i] = v;
+	}
+	graph.add_vertices(vArray, size);
+
+	if(graph.search_vertex(vArray[0]) == true && graph.search_vertex(vArray[3])==true  &&graph.search_vertex(vArray[4])== true) 
+		cout << "Class: DirectedGraph\tTest: add multiple edges\t|PASSED\n";
+	else 
+		throw "Class: DirectedGraph\tTest: add multiple edges\t|FAILED\n";
+	 
+}
+void test_string(){
+	// DirectedGraph graph;
+	// Vertex v1(1,10);
+	// Vertex v2(2,20);
+	// Vertex v3(3,30);
+	// Vertex v4(4,40);
+	// Vertex v5(5,50);
+	// Vertex v6(6,60);
+	// Vertex v7(7,70);
+
+	// Edge e1(&v1,&v2,0.5);
+	// Edge e2(&v2,&v3,0.5);
+	// Edge e3(&v1,&v2,0.5);
+	// Edge e1(&v1,&v2,0.5);
+	// Edge e1(&v1,&v2,0.5);
+	// Edge e1(&v1,&v2,0.5);
+	// Edge e1(&v1,&v2,0.5);
+	// Edge e1(&v1,&v2,0.5);
 }
 void populate_graph(DirectedGraph &graph) {
 
