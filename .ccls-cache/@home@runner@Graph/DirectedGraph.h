@@ -11,6 +11,8 @@ private:
 
 public:
   DirectedGraph();
+	DirectedGraph(const DirectedGraph &); // copy constructor;
+	
 
   // getters and setters
   int get_num_vertices();

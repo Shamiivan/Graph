@@ -20,33 +20,35 @@ void populate_graph(DirectedGraph &graph);
 void test_add_edge();
 void test_search_vertex();
 void test_search_edge();
-
 void test_search_v_index();
-
+void test_string();
 int main(int argc, char const *argv[]) {
   try {
+		//tests related to Edge and Vertex class
     test_vertex_constructor();
     test_vertex_getters_and_setters();
     test_edge_constructor();
     test_edge_getters_and_setters();
     test_edge_has_vertex();
-    cout << endl;
+    
+		cout << endl;
+
+		//test related to graph class
+    test_constructor();
+    test_copy_constructor();
     test_add_vertex();
     test_remove_edge();
     test_add_edge();
     test_search_vertex();
     test_search_edge();
 
-		test_search_v_index();
+    test_search_v_index();
     test_remove_vertex();
-    // test_copy_constructor();
 
-		cout << "All test pass\n";
+    cout << "All test pass\n";
   } catch (const char *msg) {
     cout << msg;
   };
-
-  // test_constructor();
 
   // display();
   return 0;
@@ -127,21 +129,17 @@ void test_edge_has_vertex() {
   else
     throw "Class: Edge\tTest : has vertex \t|FAILED\n";
 }
-// void test_constructor() {
-//   //
-//   try {
-//     DirectedGraph graph;
-//     cout << "Class : DirectedGraph\tTest: initialiase constructor\t|PASSED "
-//             "\n";
-//   } catch (...) {
-//     cout << "Class : DirectedGraph\tTest: initialiase constructor\t|FAILED "
-//             "\n";
-//   }
-// }
+void test_constructor() {
+  DirectedGraph graph;
+  cout << "Class : DirectedGraph\tTest: initialiase constructor\t|PASSED "
+          "\n";
+}
 void test_copy_constructor() {
   DirectedGraph graph;
   Vertex v1(50, 40);
   populate_graph(graph); // add ten vertices and 11 edges
+  graph.add_vertex(v1);
+
   DirectedGraph copy(graph);
   if (copy.search_vertex(v1) == true && copy.get_num_vertices() == 11 &&
       copy.get_num_edges() == 11)
@@ -192,7 +190,6 @@ void test_remove_vertex() {
   populate_graph(graph); // add 10 more vertices and 11edges
   graph.remove_vertex(v2);
 
-
   if (graph.search_vertex(v2) == false && graph.search_vertex(v1) == true &&
       graph.search_edge(e1) == false && graph.get_num_edges() == 22 &&
       graph.get_num_vertices() == 21)
@@ -241,18 +238,38 @@ void test_search_edge() {
     throw "Class : DirectedGraph \tTest: search for an edge\t|FAILED\n";
 }
 
+void test_search_v_index() {
+  DirectedGraph graph;
+  populate_graph(graph); // add 10 vertices
+  Vertex v1(2, 30);
+  graph.add_vertex(v1);
 
+  if (graph.search_vertex_index(v1) == 10)
+    cout << "Class: DirectedGraph\tTest: search for a vertex and return it's "
+            "index\t|PASSED\n";
+  else
+    throw "Class: DirectedGraph\tTest: search for a vertex and return it's "
+          "index\t|FAILED\n";
+}
 
-void test_search_v_index(){
+void test_string(){
 	DirectedGraph graph;
-	populate_graph(graph); //add 10 vertices
-	Vertex v1 (2,30);	
-	graph.add_vertex(v1);	
+	Vertex v1(1,10);
+	Vertex v2(2,20);
+	Vertex v3(3,30);
+	Vertex v4(4,40);
+	Vertex v5(5,50);
+	Vertex v6(6,60);
+	Vertex v7(7,70);
 
-	if(graph.search_vertex_index(v1) == 10)
-		cout << "Class: DirectedGraph\tTest: search for a vertex and return it's index\t|PASSED\n";
-	else 
-		throw "Class: DirectedGraph\tTest: search for a vertex and return it's index\t|FAILED\n";
+	Edge e1(&v1,&v2,0.5);
+	Edge e2(&v2,&v3,0.5);
+	Edge e3(&v1,&v2,0.5);
+	Edge e1(&v1,&v2,0.5);
+	Edge e1(&v1,&v2,0.5);
+	Edge e1(&v1,&v2,0.5);
+	Edge e1(&v1,&v2,0.5);
+	Edge e1(&v1,&v2,0.5);
 }
 void populate_graph(DirectedGraph &graph) {
 

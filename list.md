@@ -24,8 +24,8 @@
 5.  [] Implement copy construcor
 6.  [x] Write test for add vertex method
 7.  [x] Implement add vertex method
-8.  [] write test for remove_vertex()
-9.  [] implement remove_vertex()
+8.  [x] write test for remove_vertex()
+9.  [x] implement remove_vertex()
 10. [x] write test for add_edge()-Ivan
 12. [x] implement for add_edge()-Mina
 14. [x] write test for remove_edge()

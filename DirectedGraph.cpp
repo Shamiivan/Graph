@@ -6,6 +6,19 @@ DirectedGraph::DirectedGraph() {
   num_edges = 0;
   num_vertices = 0;
 }
+DirectedGraph::DirectedGraph(const DirectedGraph &other){
+  num_edges = other.num_edges;
+  num_vertices = other.num_vertices;
+
+  vertices = new Vertex[LIST_SIZE];
+  edges = new Edge[LIST_SIZE];
+	
+	for(int i{0}; i <num_vertices; i++)
+		vertices[i] =  other.vertices[i];
+
+	for(int i{0}; i <num_edges; i++)
+		edges[i] =  other.edges[i];
+}
 int DirectedGraph::get_num_edges() { return num_edges; }
 int DirectedGraph::get_num_vertices() { return num_vertices; }
 
@@ -21,7 +34,6 @@ bool DirectedGraph::add_vertex(Vertex &v) {
 // virtual bool add_Vertecices(Vertex *vArray); // add in a set of vertices;
 
 bool DirectedGraph::remove_vertex(Vertex &vertex) {
-  std::cout << "removing a vertex with id: " << vertex.get_id() << std::endl;
   int index = search_vertex_index(vertex); //get the index of the vertex
   if (index == -1)
     return false;
@@ -218,7 +230,7 @@ string DirectedGraph::to_string() const {
 //   return true;
 // }else {return false}
 
-// };
+// }
 
 // bool clean(){
 // for (int i = 0; i< numvertices; i++){
@@ -229,4 +241,4 @@ string DirectedGraph::to_string() const {
 //   (edges + i) = nullptr;
 // }
 // return true;
-// };
+// }
