@@ -21,7 +21,7 @@ class Graph{
         
         // //edges
         virtual bool add_edge(Edge &e) =0;
-        // virtual bool add_edges(Edge &eArray) =0;
+        virtual bool add_edges(Edge *eArray, int size) =0;
 
         virtual bool remove_edge(Edge& e) =0;
 

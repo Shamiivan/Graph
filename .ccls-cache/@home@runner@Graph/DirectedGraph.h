@@ -35,4 +35,5 @@ public:
 
 	bool clean();
 	bool add_vertices(Vertex *vArray, int size);// add in a set of vertices; 
+	bool add_edges(Edge *eArray, int size);// add in a set of edges
 };

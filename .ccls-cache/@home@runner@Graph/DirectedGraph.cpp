@@ -216,13 +216,16 @@ bool DirectedGraph::clean(){
 
 bool DirectedGraph::add_vertices(Vertex *vArray, int size){
 
-	for(int i{0}; i <= size; i++){
+	for(int i{0}; i < size; i++){
 		add_vertex(vArray[i]);
 	}
 	return true;
 }
 
  bool DirectedGraph::add_edges(Edge *eArray, int size){
-for (int i =0 ; i)
-  
+for (int i =0 ; i < size; i++){
+	std::cout << i << std::endl;
+  add_edge(eArray[i]);
+}
+  return true;
 }
