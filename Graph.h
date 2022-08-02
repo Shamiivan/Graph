@@ -14,6 +14,7 @@ class Graph{
         // Graph(const Graph &other);
         // virtual ~Graph();
 
+        void remove(const Graph &other);
         virtual bool add_vertex(Vertex &v) =0;
         virtual bool add_vertices(Vertex *vArray, int size)=0;// add in a set of vertices; 
 
