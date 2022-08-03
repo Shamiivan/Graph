@@ -192,9 +192,12 @@ void test_remove_vertex() {
   DirectedGraph graph;
 
   populate_graph(graph); // add 10 vertices and 11 edges
-  Vertex v1(50, 60);     // vertex to be added in graph
-  Vertex v2(56, 69);
+
+  Vertex v1(50, 60);     
+  Vertex v2(56, 69);  
+
   Edge e1(&v1, &v2, 0.5);
+
   graph.add_edge(e1);    // adding the edge means adding the vertices
   populate_graph(graph); // add 10 more vertices and 11edges
   graph.remove_vertex(v2);
@@ -282,13 +285,17 @@ void test_add_vertices(){
 	DirectedGraph graph;
 	int size = 4;
 	Vertex *vArray = new Vertex[size];
+ 
+ //populate array with vertices
 	for(int i{0}; i< size;i++){
 		Vertex v(i,i*2);
 		vArray[i] = v;
 	}
 	graph.add_vertices(vArray, size);
 
-	if(graph.search_vertex(vArray[0]) == true && graph.search_vertex(vArray[3])==true  &&graph.search_vertex(vArray[4])== true) 
+	if(graph.search_vertex(vArray[0]) == true 
+  && graph.search_vertex(vArray[3])==true  
+  &&graph.search_vertex(vArray[4])== false) 
 		cout << "Class: DirectedGraph\tTest: add multiple vertices\t|PASSED\n";
 	else 
 		throw "Class: DirectedGraph\tTest: add multiple vertices\t|FAILED\n";
@@ -314,7 +321,6 @@ void test_add_edges(){
 	eArray[2] = e3;
 	graph.add_edges(eArray,size);	
 
-	cout << "Baby this what we're looking for: " << graph.search_edge_index(eArray[2]);
 	if(graph.search_edge(eArray[0]) == true && graph.search_edge(eArray[1])==true  &&graph.search_edge(eArray[2])== true) 
 		cout << "Class: DirectedGraph\tTest: add multiple edges\t|PASSED\n";
 	else 
