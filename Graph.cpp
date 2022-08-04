@@ -28,9 +28,6 @@ Graph::~Graph()
 {
 	delete[] vertices;
 	delete[] edges;
-
-	vertices = nullptr;
-	edges = nullptr;
 }
 
 int Graph::get_num_edges() const { return num_edges; }		 // returns the number of edges
@@ -38,15 +35,13 @@ int Graph::get_num_vertices() const { return num_vertices; } // returns the numb
 
 bool Graph::add_vertex(Vertex &v)
 {
-	if (search_vertex(v) == true)
-	{
-		return false;
-	}
-	else if (search_vertex(v) == false)
-	{
+	if (search_vertex(v) == false) {
 		vertices[num_vertices] = v;
 		num_vertices++;
-		return true;
+		return true;	
+	}
+	else{ 
+		return false;
 	}
 }
 
@@ -294,7 +289,7 @@ const Vertex & Graph::operator[](int i) const{
 }
 
 ostream& operator<<(ostream &os, const Graph &g){
-	//Output all the edges
+	//Output all the edges with the format (Vertex id)<-->(Vertex id)
 
 	//make a new array of edges
 	Edge *edges;
@@ -315,5 +310,4 @@ ostream& operator<<(ostream &os, const Graph &g){
 	os << endl;
 	
 	return os;	
-	//add to os all the vertices
 };
