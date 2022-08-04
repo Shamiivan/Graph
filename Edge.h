@@ -23,6 +23,9 @@ public:
   void set_weight(double w);
   void set_vertices(Vertex*,  Vertex*); // takes two argument to insure that an edge has always 2 vertex`
 	bool has_vertex(const Vertex &); //return true if the edge is connected to the vertex
+
+
+  bool operator==(const Edge &)const; //return true if the edge is the same 
 };
 
 #endif

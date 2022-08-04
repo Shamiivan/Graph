@@ -35,12 +35,14 @@ int Graph::get_num_vertices() const { return num_vertices; } // returns the numb
 
 bool Graph::add_vertex(Vertex &v)
 {
-	if (search_vertex(v) == false) {
+	if (search_vertex(v) == false)
+	{
 		vertices[num_vertices] = v;
 		num_vertices++;
-		return true;	
+		return true;
 	}
-	else{ 
+	else
+	{
 		return false;
 	}
 }
@@ -158,25 +160,14 @@ int Graph::search_vertex_index(const Vertex &v)
 
 bool Graph::search_edge(const Edge &edge)
 {
-	if (edge.get_startPtr() == nullptr && edge.get_endPtr() == nullptr)
+	bool found = false;
+
+	for (int i = 0; i < num_edges; i++)
 	{
-		return false;
-	}
-	else
-	{
-		// 2 edges with the same start id, end id and weights are considered
-		// indetical
-		int start_id = edge.get_startPtr()->get_id();
-		int end_id = edge.get_endPtr()->get_id();
-		double w = edge.get_weight();
-		for (int i{0}; i < num_edges; i++)
-		{
-			if (edges[i].get_startPtr()->get_id() == start_id &&
-				edges[i].get_endPtr()->get_id() == end_id &&
-				edges[i].get_weight() == w)
-				return true;
-		}
-		return false;
+		if (edges[i] == edge)
+			found = true;
+
+		return found;
 	}
 }
 
@@ -184,130 +175,114 @@ int Graph::search_edge_index(const Edge &edge)
 {
 	// returns the index of an edge in array of edges
 	int index = -1;
-	//if an edge doesnt have a pointer to starting vertex and end vertex it does not exist
-	if (edge.get_startPtr() == nullptr && edge.get_endPtr() == nullptr)
+
+	for (int i = 0; i < num_edges; i++)
 	{
+		if (edges[i] == edge)
+			index = i;
 		return index;
 	}
-	else
+}
+	void Graph::display() const
 	{
-		// 2 edges with the same start id, end id and weights are considered
-		// indetical
-		int start_id = edge.get_startPtr()->get_id();
-		int end_id = edge.get_endPtr()->get_id();
-		double w = edge.get_weight();
+		std::cout << "Displaying graph:\n";
+		std::cout << "Vertices: " << num_vertices << "\n";
+		for (int i{0}; i < num_vertices; i++)
+			std::cout << "Id: " << vertices[i].get_id() << "\tValue: "
 
+					  << vertices[i].get_value() << "\n";
+
+		std::cout << "Number of edges: " << num_edges << "\n";
+		// int n=1;
+		// std::cout << edges[n].get_startPtr()->get_id()<< "\t"  <<
+		// edges[n].get_endPtr()->get_id()<< "\n";
 
 		for (int i{0}; i < num_edges; i++)
 		{
-			if (edges[i].get_startPtr()->get_id() == start_id &&
-				edges[i].get_endPtr()->get_id() == end_id &&
-				edges[i].get_weight() == w)
-			{
-				index = i;
-			}
+			int start_id = edges[i].get_startPtr()->get_id();
+			int start_value = edges[i].get_startPtr()->get_value();
+			int end_id = edges[i].get_endPtr()->get_id();
+			int end_value = edges[i].get_endPtr()->get_value();
+
+			std::cout << "Edge connects vertex with id : " << start_id
+					  << " with value: " << start_value
+					  << " to : vertex with id: " << end_id
+					  << " and value: " << end_value << "\n";
+		};
+	}
+	string Graph::to_string() const
+	{
+		for (int i = 0; i < num_vertices; i++)
+		{
 		}
 	}
-	return index;
-}
 
-void Graph::display() const
-{
-	std::cout << "Displaying graph:\n";
-	std::cout << "Vertices: " << num_vertices << "\n";
-	for (int i{0}; i < num_vertices; i++)
-		std::cout << "Id: " << vertices[i].get_id() << "\tValue: "
-
-				  << vertices[i].get_value() << "\n";
-
-	std::cout << "Number of edges: " << num_edges << "\n";
-	// int n=1;
-	// std::cout << edges[n].get_startPtr()->get_id()<< "\t"  <<
-	// edges[n].get_endPtr()->get_id()<< "\n";
-
-	for (int i{0}; i < num_edges; i++)
+	bool Graph::clean()
 	{
-		int start_id = edges[i].get_startPtr()->get_id();
-		int start_value = edges[i].get_startPtr()->get_value();
-		int end_id = edges[i].get_endPtr()->get_id();
-		int end_value = edges[i].get_endPtr()->get_value();
+		delete[] vertices;
+		delete[] edges;
 
-		std::cout << "Edge connects vertex with id : " << start_id
-				  << " with value: " << start_value
-				  << " to : vertex with id: " << end_id
-				  << " and value: " << end_value << "\n";
+		vertices = new Vertex[LIST_SIZE];
+		edges = new Edge[LIST_SIZE];
+		num_vertices = 0;
+		num_edges = 0;
+		return true;
+	}
+
+	bool Graph::add_vertices(Vertex * vArray, int size)
+	{
+
+		for (int i{0}; i < size; i++)
+		{
+			add_vertex(vArray[i]);
+		}
+		return true;
+	}
+
+	bool Graph::add_edges(Edge * eArray, int size)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			std::cout << i << std::endl;
+			add_edge(eArray[i]);
+		}
+		return true;
+	}
+
+	Edge *Graph::get_edges() const
+	{
+		return edges;
+	}
+
+	// Array subscript overload
+
+	const Vertex &Graph::operator[](int i) const
+	{
+		return vertices[i];
+	}
+
+	ostream &operator<<(ostream &os, const Graph &g)
+	{
+		// Output all the edges with the format (Vertex id)<-->(Vertex id)
+
+		// make a new array of edges
+		Edge *edges;
+		edges = g.get_edges();
+
+		os << "Displaying graph \n";
+		os << "Vertices: " << g.get_num_vertices() << "\n";
+		os << "Edges " << g.get_num_edges() << "\n";
+
+		for (int i = 0; i < g.get_num_edges(); i++)
+		{
+			// find the vertices of the edge and get their id
+			int start_id = edges[i].get_startPtr()->get_id();
+			int end_id = edges[i].get_endPtr()->get_id();
+
+			// print the edge
+			os << start_id << "<-->" << end_id << " ; ";
+		}
+		os << endl;
+
+		return os;
 	};
-}
-string Graph::to_string() const
-{
-	for (int i = 0; i < num_vertices; i++)
-	{
-	}
-}
-
-bool Graph::clean()
-{
-	delete[] vertices;
-	delete[] edges;
-
-	vertices = new Vertex[LIST_SIZE];
-	edges = new Edge[LIST_SIZE];
-	num_vertices = 0;
-	num_edges =0;
-	return true;
-}
-
-bool Graph::add_vertices(Vertex *vArray, int size)
-{
-
-	for (int i{0}; i < size; i++)
-	{
-		add_vertex(vArray[i]);
-	}
-	return true;
-}
-
-bool Graph::add_edges(Edge *eArray, int size)
-{
-	for (int i = 0; i < size; i++)
-	{
-		std::cout << i << std::endl;
-		add_edge(eArray[i]);
-	}
-	return true;
-}
-
-
-Edge* Graph::get_edges() const{
-	return edges;
-}
-
-//Array subscript overload
-
-const Vertex & Graph::operator[](int i) const{
-	return vertices[i]; 
-}
-
-ostream& operator<<(ostream &os, const Graph &g){
-	//Output all the edges with the format (Vertex id)<-->(Vertex id)
-
-	//make a new array of edges
-	Edge *edges;
-	edges = g.get_edges();
-	
-	os << "Displaying graph \n";
-	os << "Vertices: " << g.get_num_vertices()  << "\n";
-	os << "Edges " << g.get_num_edges() << "\n";
-	
-	for(int i = 0; i < g.get_num_edges(); i++){
-		//find the vertices of the edge and get their id
-		int start_id = edges[i].get_startPtr() ->get_id();
-		int end_id = edges[i].get_endPtr() ->get_id();
-
-		//print the edge
-		os << start_id << "<-->" << end_id  <<" ; ";
-	}
-	os << endl;
-	
-	return os;	
-};

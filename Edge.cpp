@@ -39,3 +39,11 @@ bool Edge::has_vertex(const Vertex &vertex){
 	else
 		return false;
 }
+
+bool Edge::operator==(const Edge &other) const {
+  if(other.startPtr->get_id() == startPtr->get_id() && other.endPtr->get_id() == endPtr->get_id() && other.weight == weight)
+    return true;
+  else{
+    return false;
+  }
+}
