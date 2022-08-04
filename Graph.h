@@ -9,7 +9,7 @@
 using std::string;
 using std::cout;
 using std::endl;
-
+using std::ostream;
 class Graph{
     protected:
         int num_vertices;
@@ -17,6 +17,8 @@ class Graph{
         Edge *edges;
         Vertex *vertices;
         const size_t LIST_SIZE = 100; // used to initiliaze arrays of vertex and edges
+
+
     public:
        	Graph();
         Graph(const Graph &other);
@@ -49,6 +51,10 @@ class Graph{
         virtual string to_string() const; //convert the whole graph to a string such as 1-2-4--5; 1-3-4; note: each different path is separeted by a ';'
         virtual bool clean(); //remove all the vertices and edges
 
+
+        Edge* get_edges() const;
+        //operator overloads
+        const Vertex& operator[](int) const;        
 
 };
 

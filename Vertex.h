@@ -18,6 +18,9 @@ public:
 
 		void set_id(int id);
 		void set_value(int value);
+
+    //operator overloads
+    Vertex operator=(Vertex& other);
 };
 
 #endif

@@ -53,4 +53,6 @@
 
 
 //graph
-- [] refactor graph
+- [x] refactor graph
+- [] refactor the add edge function
+- [] Add an operator

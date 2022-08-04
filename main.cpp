@@ -27,36 +27,52 @@ void test_clean();
 //bonuses
 void test_add_vertices();
 void test_add_edges();
+
+
+//new tests
+
+
+//function overloads
+
+ostream& operator<<(ostream &os, const Graph &g);
+
 int main(int argc, char const *argv[]) {
-  try {
-		//tests related to Edge and Vertex class
-    test_vertex_constructor();
-    test_vertex_getters_and_setters();
-    test_edge_constructor();
-    test_edge_getters_and_setters();
-    test_edge_has_vertex();
+  // try {
+	// 	//tests related to Edge and Vertex class
+  //   test_vertex_constructor();
+  //   test_vertex_getters_and_setters();
+  //   test_edge_constructor();
+  //   test_edge_getters_and_setters();
+  //   test_edge_has_vertex();
     
-		cout << endl;
+	// 	cout << endl;
 
-		//test related to graph class
-    test_constructor();
-    test_copy_constructor();
-    test_add_vertex();
-    test_remove_edge();
-    test_add_edge();
-    test_search_vertex();
-    test_search_edge();
+	// 	//test related to graph class
+  //   test_constructor();
+  //   test_copy_constructor();
+  //   test_add_vertex();
+  //   test_remove_edge();
+  //   test_add_edge();
+  //   test_search_vertex();
+  //   test_search_edge();
 
-    test_search_v_index();
-    test_remove_vertex();
+  //   test_search_v_index();
+  //   test_remove_vertex();
 
-		test_clean();
-		test_add_vertices();//add multiples vertices
-		test_add_edges();
-    cout << "All test pass\n";
-  } catch (const char *msg) {
-    cout << msg;
-  };
+	// 	test_clean();
+	// 	test_add_vertices();//add multiples vertices
+	// 	test_add_edges();
+  //   cout << "All test pass\n";
+  // } catch (const char *msg) {
+  //   cout << msg;
+  // };
+
+  DirectedGraph g;
+  populate_graph(g);
+  cout << g;
+  
+  Vertex vertex = g[3];
+  cout << vertex.get_id() << endl;
 
 
   // display();
@@ -392,3 +408,5 @@ void populate_graph(DirectedGraph &graph) {
   graph.add_vertex(v4);
   graph.add_vertex(v8);
 }
+
+

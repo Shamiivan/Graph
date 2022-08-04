@@ -27,3 +27,12 @@ Vertex::Vertex(const Vertex& old_copy){
 		void Vertex::set_value(int value){
       m_value = value;
     };
+
+
+    //operator overloads
+
+    Vertex Vertex::operator=(Vertex & other){
+     m_id = other.m_id;
+     m_value = other.m_value;
+     return *this;
+    }
