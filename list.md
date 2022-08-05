@@ -56,3 +56,7 @@
 - [x] refactor graph
 - [] refactor the add edge function
 - [] Add an operator
+- [x] implement operator string 
+
+
+why does  == not work when constant are involved?

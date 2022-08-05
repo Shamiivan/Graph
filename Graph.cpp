@@ -239,10 +239,6 @@ ostream &operator<<(ostream &os, Graph &g)
 {
 	// Output all the edges with the format (Vertex id)<-->(Vertex id)
 
-	// make a new array of edges
-	// Edge *edges;
-	// edges = g.get_edges();
-
 	os << "\n\nDisplaying graph \n";
 	os << "Vertices: " << g.num_vertices << "\n";
 	os << "Edges " << g.num_edges << "\n";
@@ -260,3 +256,19 @@ ostream &operator<<(ostream &os, Graph &g)
 
 	return os;
 };
+
+
+Graph::operator string() const{
+	ostringstream os;
+
+	for(int i = 0; i < num_edges; i++){
+		int start_id = edges[i].get_startPtr()->get_id();
+		int end_id = edges[i].get_endPtr()->get_id();
+
+		os << "(" << start_id << "," << end_id << ")" << " ";
+	}
+	
+	return (os.str());
+	
+
+}

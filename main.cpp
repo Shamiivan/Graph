@@ -50,6 +50,11 @@ int main(int argc, char const *argv[]) {
   cout << vertex.get_id() << endl;
 
 
+Graph g2;
+populate_graph(g2);
+string graph = (string)g2;
+
+cout << graph << endl;
   // display();
   return 0;
 };

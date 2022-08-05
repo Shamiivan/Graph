@@ -5,10 +5,12 @@
 #include "Edge.h"
 #include <string>
 #include <iostream>
+#include <sstream>
 
 using std::string;
 using std::cout;
 using std::endl;
+using std::ostringstream;
 using std::ostream;
 class Graph{
     protected:
@@ -56,6 +58,7 @@ class Graph{
         const Vertex& operator[](int) const;        
         friend ostream &operator<<(ostream &os, Graph &g);
 
+        operator string() const; // convert list of edges to a string
 
 
 };
