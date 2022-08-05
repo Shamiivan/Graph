@@ -31,7 +31,7 @@ class Graph{
         //vertices
         virtual bool add_vertex(Vertex &v);
         virtual bool add_vertices(Vertex *vArray, int size);// add in a set of vertices;
-        virtual int  search_vertex_index(const Vertex &vertex);
+        virtual int  search_vertex_index(Vertex &vertex);
         virtual bool search_vertex(Vertex &v); //return bool if a vertex exist in a graph;
         virtual bool remove_vertex(Vertex &vertex);
         
@@ -52,9 +52,11 @@ class Graph{
         virtual bool clean(); //remove all the vertices and edges
 
 
-        Edge* get_edges() const;
         //operator overloads
         const Vertex& operator[](int) const;        
+        friend ostream &operator<<(ostream &os, Graph &g);
+
+
 
 };
 
