@@ -75,9 +75,6 @@ bool Graph::add_edge(Edge &e)
 {
 	// add using deep copy, otherwise the edge added will have pointers to
 	// external object
-	Vertex start(*e.get_startPtr()); // make a copy of the starting vertex
-	Vertex end(*e.get_endPtr());	 // make a copy of the ending vertex
-	double weight = e.get_weight();
 
 	Vertex *startPtr; // used to store the pointer of the vertex in the edge
 	Vertex *endPtr;
@@ -103,8 +100,8 @@ bool Graph::add_edge(Edge &e)
 	
 
 	// add the edge to the graph
-	Edge new_edge(startPtr, endPtr, weight);
-	edges[num_edges] = new_edge;
+	edges[num_edges].set_vertices(startPtr, endPtr);
+	edges[num_edges].set_weight(e.get_weight());
 	num_edges++;
 	return true;
 }
@@ -189,13 +186,7 @@ void Graph::display() const
 				  << " and value: " << end_value << "\n";
 	};
 }
-string Graph::to_string() const
-{
-	for (int i = 0; i < num_vertices; i++)
-	{
-	}
-	return "";
-}
+
 
 bool Graph::clean()
 {
@@ -258,9 +249,10 @@ ostream &operator<<(ostream &os, Graph &g)
 };
 
 
+//return string representation of all edges in form, an edge is represented as (v1,v2)
 Graph::operator string() const{
+	
 	ostringstream os;
-
 	for(int i = 0; i < num_edges; i++){
 		int start_id = edges[i].get_startPtr()->get_id();
 		int end_id = edges[i].get_endPtr()->get_id();
