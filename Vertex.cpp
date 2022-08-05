@@ -36,3 +36,11 @@ Vertex::Vertex(const Vertex& old_copy){
      m_value = other.m_value;
      return *this;
     }
+
+    bool Vertex::operator==(Vertex & other) const { 
+      bool is_equal = false;
+      if(other.m_id == m_id && other.m_value == m_value)
+        is_equal = true;
+      return is_equal;
+
+    }

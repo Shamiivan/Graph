@@ -49,7 +49,7 @@ bool Graph::add_vertex(Vertex &v)
 
 bool Graph::remove_vertex(Vertex &vertex)
 {
-	int index = search_vertex_index(vertex);
+	int index = search_vertex_index(vertex); //return 
 	if (index == -1)
 		return false;
 
@@ -79,42 +79,28 @@ bool Graph::add_edge(Edge &e)
 	Vertex end(*e.get_endPtr());	 // make a copy of the ending vertex
 	double weight = e.get_weight();
 
-	Vertex *startPtr; // used to store the pointers of the vertex in graph
+	Vertex *startPtr; // used to store the pointer of the vertex in the edge
 	Vertex *endPtr;
 
-	// check if the vertex already exist in the graph
-	if (search_vertex(start) == false)
-	{
-		add_vertex(start);
-		startPtr = (vertices + (num_vertices - 1));
+	// check if the vertex already exist in the graph, if not add it to the graph
+	int index = search_vertex_index(*e.get_startPtr());
+	if(index == -1){
+		add_vertex(*e.get_startPtr());
+		startPtr = (vertices + (num_vertices - 1)); // get the pointer of the vertex 
+	}else if(index != -1){
+		startPtr = (vertices + index); // get the pointer of the vertex
 	}
-	else if (search_vertex(start) == true)
-	{
-		for (int i{0}; i <= num_vertices; i++)
-		{
-			if (vertices[i].get_id() == start.get_id() &&
-				vertices[i].get_value() == start.get_value())
-			{
-				startPtr = (vertices + i);
-			}
-		}
+
+
+
+	int index_end = search_vertex_index(*e.get_endPtr());
+	if(index_end == -1){
+		add_vertex(*e.get_endPtr());
+		endPtr = (vertices + (num_vertices - 1)); // get the pointer of the vertex 
+	}else if(index_end != -1){
+		endPtr = (vertices + index_end); // get the pointer of the vertex
 	}
-	if (search_vertex(end) == false)
-	{
-		add_vertex(end); // if they dont
-		endPtr = (vertices + (num_vertices - 1));
-	}
-	else if (search_vertex(end) == true)
-	{
-		for (int i{0}; i <= num_vertices; i++)
-		{
-			if (vertices[i].get_id() == start.get_id() &&
-				vertices[i].get_value() == start.get_value())
-			{
-				endPtr = (vertices + i);
-			}
-		}
-	}
+	
 
 	// add the edge to the graph
 	Edge new_edge(startPtr, endPtr, weight);
@@ -132,17 +118,15 @@ bool Graph::remove_edge(Edge &edge)
 	return true;
 }
 
-bool Graph::search_vertex(const Vertex &v)
+bool Graph::search_vertex(Vertex &v)
 {
-	for (int i{0}; i <= num_vertices; i++)
+	bool found = false;
+	for (int i = 0; i < num_vertices; i++)
 	{
-		if (v.get_id() == vertices[i].get_id() &&
-			v.get_value() == vertices[i].get_value())
-		{
-			return true;
-		}
+		if (vertices[i] == v)
+			found = true;
 	}
-	return false;
+	return found;
 };
 int Graph::search_vertex_index(const Vertex &v)
 {
@@ -166,9 +150,8 @@ bool Graph::search_edge(const Edge &edge)
 	{
 		if (edges[i] == edge)
 			found = true;
-
-		return found;
 	}
+	return found;
 }
 
 int Graph::search_edge_index(const Edge &edge)
@@ -180,109 +163,108 @@ int Graph::search_edge_index(const Edge &edge)
 	{
 		if (edges[i] == edge)
 			index = i;
-		return index;
 	}
+	return index;
 }
-	void Graph::display() const
+void Graph::display() const
+{
+	std::cout << "Displaying graph:\n";
+	std::cout << "Vertices: " << num_vertices << "\n";
+	for (int i{0}; i < num_vertices; i++)
+		std::cout << "Id: " << vertices[i].get_id() << "\tValue: "
+
+				  << vertices[i].get_value() << "\n";
+
+	std::cout << "Number of edges: " << num_edges << "\n";
+
+
+//display the edges
+	for (int i{0}; i < num_edges; i++)
 	{
-		std::cout << "Displaying graph:\n";
-		std::cout << "Vertices: " << num_vertices << "\n";
-		for (int i{0}; i < num_vertices; i++)
-			std::cout << "Id: " << vertices[i].get_id() << "\tValue: "
+		int start_id = edges[i].get_startPtr()->get_id();
+		int start_value = edges[i].get_startPtr()->get_value();
+		int end_id = edges[i].get_endPtr()->get_id();
+		int end_value = edges[i].get_endPtr()->get_value();
 
-					  << vertices[i].get_value() << "\n";
-
-		std::cout << "Number of edges: " << num_edges << "\n";
-		// int n=1;
-		// std::cout << edges[n].get_startPtr()->get_id()<< "\t"  <<
-		// edges[n].get_endPtr()->get_id()<< "\n";
-
-		for (int i{0}; i < num_edges; i++)
-		{
-			int start_id = edges[i].get_startPtr()->get_id();
-			int start_value = edges[i].get_startPtr()->get_value();
-			int end_id = edges[i].get_endPtr()->get_id();
-			int end_value = edges[i].get_endPtr()->get_value();
-
-			std::cout << "Edge connects vertex with id : " << start_id
-					  << " with value: " << start_value
-					  << " to : vertex with id: " << end_id
-					  << " and value: " << end_value << "\n";
-		};
-	}
-	string Graph::to_string() const
-	{
-		for (int i = 0; i < num_vertices; i++)
-		{
-		}
-	}
-
-	bool Graph::clean()
-	{
-		delete[] vertices;
-		delete[] edges;
-
-		vertices = new Vertex[LIST_SIZE];
-		edges = new Edge[LIST_SIZE];
-		num_vertices = 0;
-		num_edges = 0;
-		return true;
-	}
-
-	bool Graph::add_vertices(Vertex * vArray, int size)
-	{
-
-		for (int i{0}; i < size; i++)
-		{
-			add_vertex(vArray[i]);
-		}
-		return true;
-	}
-
-	bool Graph::add_edges(Edge * eArray, int size)
-	{
-		for (int i = 0; i < size; i++)
-		{
-			std::cout << i << std::endl;
-			add_edge(eArray[i]);
-		}
-		return true;
-	}
-
-	Edge *Graph::get_edges() const
-	{
-		return edges;
-	}
-
-	// Array subscript overload
-
-	const Vertex &Graph::operator[](int i) const
-	{
-		return vertices[i];
-	}
-
-	ostream &operator<<(ostream &os, const Graph &g)
-	{
-		// Output all the edges with the format (Vertex id)<-->(Vertex id)
-
-		// make a new array of edges
-		Edge *edges;
-		edges = g.get_edges();
-
-		os << "Displaying graph \n";
-		os << "Vertices: " << g.get_num_vertices() << "\n";
-		os << "Edges " << g.get_num_edges() << "\n";
-
-		for (int i = 0; i < g.get_num_edges(); i++)
-		{
-			// find the vertices of the edge and get their id
-			int start_id = edges[i].get_startPtr()->get_id();
-			int end_id = edges[i].get_endPtr()->get_id();
-
-			// print the edge
-			os << start_id << "<-->" << end_id << " ; ";
-		}
-		os << endl;
-
-		return os;
+		std::cout << "Edge connects vertex with id : " << start_id
+				  << " with value: " << start_value
+				  << " to : vertex with id: " << end_id
+				  << " and value: " << end_value << "\n";
 	};
+}
+string Graph::to_string() const
+{
+	for (int i = 0; i < num_vertices; i++)
+	{
+	}
+	return "";
+}
+
+bool Graph::clean()
+{
+	delete[] vertices;
+	delete[] edges;
+
+	vertices = new Vertex[LIST_SIZE];
+	edges = new Edge[LIST_SIZE];
+	num_vertices = 0;
+	num_edges = 0;
+	return true;
+}
+
+bool Graph::add_vertices(Vertex *vArray, int size)
+{
+
+	for (int i{0}; i < size; i++)
+	{
+		add_vertex(vArray[i]);
+	}
+	return true;
+}
+
+bool Graph::add_edges(Edge *eArray, int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		add_edge(eArray[i]);
+	}
+	return true;
+}
+
+Edge *Graph::get_edges() const
+{
+	return edges;
+}
+
+// Array subscript overload
+
+const Vertex &Graph::operator[](int i) const
+{
+	return vertices[i];
+}
+
+ostream &operator<<(ostream &os, const Graph &g)
+{
+	// Output all the edges with the format (Vertex id)<-->(Vertex id)
+
+	// make a new array of edges
+	Edge *edges;
+	edges = g.get_edges();
+
+	os << "Displaying graph \n";
+	os << "Vertices: " << g.get_num_vertices() << "\n";
+	os << "Edges " << g.get_num_edges() << "\n";
+
+	for (int i = 0; i < g.get_num_edges(); i++)
+	{
+		// find the vertices of the edge and get their id
+		int start_id = edges[i].get_startPtr()->get_id();
+		int end_id = edges[i].get_endPtr()->get_id();
+
+		// print the edge
+		os << start_id << "<-->" << end_id << " ; ";
+	}
+	os << endl;
+
+	return os;
+};

@@ -41,7 +41,10 @@ bool Edge::has_vertex(const Vertex &vertex){
 }
 
 bool Edge::operator==(const Edge &other) const {
-  if(other.startPtr->get_id() == startPtr->get_id() && other.endPtr->get_id() == endPtr->get_id() && other.weight == weight)
+  //if any of the pointer are nullptr, it means edge is not connected
+  if(other.startPtr == nullptr ||  other.endPtr == nullptr)
+    return false;
+  else if(other.startPtr->get_id() == startPtr->get_id() && other.endPtr->get_id() == endPtr->get_id() && other.weight == weight)
     return true;
   else{
     return false;

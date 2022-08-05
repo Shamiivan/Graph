@@ -21,6 +21,7 @@ public:
 
     //operator overloads
     Vertex operator=(Vertex& other);
+    bool operator==(Vertex& other) const;
 };
 
 #endif

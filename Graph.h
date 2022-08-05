@@ -32,7 +32,7 @@ class Graph{
         virtual bool add_vertex(Vertex &v);
         virtual bool add_vertices(Vertex *vArray, int size);// add in a set of vertices;
         virtual int  search_vertex_index(const Vertex &vertex);
-        virtual bool search_vertex(const Vertex &v); //return bool if a vertex exist in a graph;
+        virtual bool search_vertex(Vertex &v); //return bool if a vertex exist in a graph;
         virtual bool remove_vertex(Vertex &vertex);
         
         // //edges
