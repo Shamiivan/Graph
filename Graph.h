@@ -29,6 +29,7 @@ class Graph{
         //number of vertices and number of edges
         int get_num_vertices() const;
         int get_num_edges() const;
+        Edge* get_edge(int)const; // returns the edge corresponding to the given index
  
         //vertices
         virtual bool add_vertex(Vertex &v);
@@ -57,6 +58,8 @@ class Graph{
         //operator overloads
         bool operator==(Graph &other) const;
         void operator =(Graph &other);
+        void operator ++();
+        void operator ++(int);
         const Vertex& operator[](int) const;        
         friend ostream &operator<<(ostream &os, Graph &g);
 

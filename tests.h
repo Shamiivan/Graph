@@ -45,6 +45,62 @@ struct Test
       throw "Class: Graph:\tTest: = Operator oveloading \t|FAILED\n";
   }
 
+void prefix_incrementor(){
+  Graph g;
+
+  Vertex *v1 = new Vertex(1,10); 
+  Vertex *v2 = new Vertex(2,10); 
+  
+  Edge e1(v1,v2,0.3);
+  Edge e2(v2,v1,0.5);
+  g.add_edge(e1);
+  g.add_edge(e2);
+
+//increment 
+++g;
+  //set new weight
+  e1.set_weight(1.3); 
+  e2.set_weight(1.5);
+
+
+  //check if edges correspond to the edge in graph
+  if(g.search_edge(e1) && g.search_edge(e2))
+    cout << "Class: Graph:\tTest: ++Graph Operator oveloading \t|PASSED\n";
+  else 
+    throw "Class: Graph:\tTest: ++Graph Operator oveloading \t|FAILED\n";
+  
+    delete v1;
+    delete v2;
+}
+
+void postfix_increment(){
+  Graph g;
+
+  Vertex *v1 = new Vertex(1,10); 
+  Vertex *v2 = new Vertex(2,10); 
+  
+  Edge e1(v1,v2,0.3);
+  Edge e2(v2,v1,0.5);
+  g.add_edge(e1);
+  g.add_edge(e2);
+
+//increment 
+g++;
+  //set new weight
+  e1.set_weight(1.3); 
+  e2.set_weight(1.5);
+
+
+  //check if edges correspond to the edge in graph
+  if(g.search_edge(e1) && g.search_edge(e2))
+    cout << "Class: Graph:\tTest: Graph++ Operator oveloading \t|PASSED\n";
+  else 
+    throw "Class: Graph:\tTest: Graph++ Operator oveloading \t|FAILED\n";
+  
+    delete v1;
+    delete v2;
+
+}
  void arr_subscript(){
   Graph g;
   Vertex v(10,1);
@@ -72,6 +128,7 @@ void print(){
   cout << "Class: Graph : \tTest: << Operator overloading \t|\n";
   cout << g << endl;
 }
+
 //vertex class methods
 void vertex_constructor()
   {

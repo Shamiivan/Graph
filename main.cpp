@@ -16,6 +16,8 @@ try{
   Test op_tests;
   op_tests.equality();
   op_tests.assignment();
+  op_tests.prefix_incrementor();
+  op_tests.postfix_increment();
   op_tests.arr_subscript();
   op_tests.to_string();
   op_tests.print(); // test the << operator overloading function

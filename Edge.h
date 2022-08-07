@@ -27,6 +27,8 @@ public:
 
   bool operator != (Edge &); 
   bool operator==(Edge &); //return true if the edge is the same 
+
+  friend ostream& operator<< (std::ostream &, Edge &);
 };
 
 #endif

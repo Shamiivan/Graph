@@ -33,6 +33,12 @@ Graph::~Graph()
 int Graph::get_num_edges() const { return num_edges; }		 // returns the number of edges
 int Graph::get_num_vertices() const { return num_vertices; } // returns the number of vertices
 
+Edge* Graph::get_edge(int index)const{
+	if(index < 0 || index >= num_edges) 
+		return nullptr;
+	else
+		return &edges[index];
+}
 bool Graph::add_vertex(Vertex &v)
 {
 	if (search_vertex(v) == false)
@@ -239,6 +245,22 @@ void Graph::operator=(Graph &other){
 	other.add_edges(edges, num_edges);
 	other.add_vertices(vertices, num_vertices);
 }
+void Graph::operator++(){
+  for (int i = 0; i < num_edges; i++){
+    double oldWeight = edges[i].get_weight();
+    double newWeight = oldWeight + 1;
+    edges[i].set_weight(newWeight);
+  }
+}
+
+void Graph::operator++ (int){
+  for (int i = 0; i < num_edges; i++){
+    double oldWeight = edges[i].get_weight();
+    double newWeight = oldWeight +  1;
+    edges[i].set_weight(newWeight);
+  }
+}
+
 // Array subscript overload
 const Vertex &Graph::operator[](int i) const
 {
@@ -248,8 +270,7 @@ const Vertex &Graph::operator[](int i) const
 ostream &operator<<(ostream &os, Graph &g)
 {
 	// Output all the edges with the format (Vertex id)<-->(Vertex id)
-
-	os << "\n\nDisplaying graph \n";
+	os << "\nDisplaying graph\n";
 	os << "Vertices: " << g.num_vertices << "\n";
 	os << "Edges " << g.num_edges << "\n";
 

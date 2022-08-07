@@ -57,10 +57,10 @@
 - [x] implement operator == 
 - [x] implement assignment operator
 - [x] test operator =
-- [] test operatt +(both)
+- [x] test operatt +(both)
 - [] implement operator ++
 - [x] write test for []
-- [] write test for cout
+- [x] write test for cout
 - [x] write test for string  
 
 

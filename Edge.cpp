@@ -57,3 +57,9 @@ bool Edge::operator!=(Edge& other) {
   else
     return true;
 }
+
+
+ostream &operator<<(ostream &os, Edge &e) {
+  os << "(" << e.get_startPtr()->get_id()<<"," << e.get_endPtr()->get_id() << "," << e.weight<< ")";
+  return os;
+}
