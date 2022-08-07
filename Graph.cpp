@@ -232,6 +232,13 @@ bool Graph::operator==(Graph &other) const
 	}
 return true;
 }
+
+//assignment operator
+void Graph::operator=(Graph &other){
+	other.clean();
+	other.add_edges(edges, num_edges);
+	other.add_vertices(vertices, num_vertices);
+}
 // Array subscript overload
 const Vertex &Graph::operator[](int i) const
 {

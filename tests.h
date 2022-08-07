@@ -6,8 +6,47 @@
 void populate_graph(Graph &graph); // used to populate graphs 
 struct Test
 {
-  //includes all the tests for member functions
-  void vertex_constructor()
+  //includes all the tests for member functions and function oveloading:w
+
+  void equality(){
+    Graph g1;
+    Graph g2;
+    Graph g3;
+
+    Vertex *v1 = new Vertex(10,10);
+    Vertex *v2 = new Vertex(20,40);
+
+    Edge edge(v1,v2,0.5);
+
+    g1.add_edge(edge);
+    g2.add_edge(edge);
+    
+  
+    if(((g1 == g2) == true) && ((g1 == g3) == false))
+      cout << "Graph : == \tTest: == Operator oveloading \t|PASSED\n";
+    else 
+      throw "Graph :  == \tTest: == Operator oveloading \t|FAILED\n";
+
+   delete v1;
+   delete v2;
+  }
+
+  void assignment(){
+    Graph g1;
+    Graph g2;
+
+    populate_graph(g1);
+
+    g2=g1;
+
+    if(g1==g2)
+      cout << "Class: Graph : = \tTest: = Operator oveloading \t|PASSED\n";
+    else
+      throw "Class: Graph :  = \tTest: = Operator oveloading \t|FAILED\n";
+  }
+
+
+void vertex_constructor()
   {
     Vertex v(1, 20);
     if (v.get_id() == 1 && v.get_value() == 20)
@@ -31,6 +70,8 @@ struct Test
       throw "Class: Vertex\tTest: getters and setters\t|FAILED\n";
   }
 
+  
+  //edge class methods
   void edge_constructor()
   {
     // make an instance of edge using constructor with arguments
@@ -249,7 +290,7 @@ struct Test
     // populate array with vertices
     for (int i{0}; i < size; i++)
     {
-      Vertex v(i, i * 2);
+      Vertex v(i+1, i * 2);
       vArray[i] = v;
     }
     graph.add_vertices(vArray, size);

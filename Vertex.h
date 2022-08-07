@@ -1,5 +1,11 @@
 #ifndef VERTEX
 #define VERTEX
+#include <iostream>
+#include <sstream>
+
+using std::ostream;
+using std::ostringstream;
+using std::endl;
 class Vertex
 {
 private:
@@ -22,6 +28,8 @@ public:
     //operator overloads
     Vertex operator=(Vertex& other);
     bool operator==(Vertex& other) const;
+
+    friend ostream &operator<<(ostream &os, Vertex);
 };
 
 #endif

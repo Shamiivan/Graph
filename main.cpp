@@ -1,9 +1,9 @@
-#include "DirectedGraph.h"
 #include <cassert>
 #include <iomanip>
 #include <iostream>
 #include <string>
 
+#include "DirectedGraph.h"
 #include "tests.h"
 using namespace std;
 
@@ -11,11 +11,21 @@ void populate_graph(Graph &graph); // used to populate graphs
 ostream& operator<<(ostream &os, const Graph &g); //definition in graph class
 
 int main(int argc, char const *argv[]) {
-  Test test;
+try{
+  //try block for the operator overloading functions
+  Test test_op;
+  test_op.equality();
+  test_op.assignment();
+}catch(const char *msg) {
+  cout << msg;
+};
   try {
+  Test test;
 		//tests related to Edge and Vertex class
+    cout << endl;
     test.vertex_constructor();
     test.vertex_getters_and_setters();
+    cout << endl;
     test.edge_constructor();
     test.edge_getters_and_setters();
     test.edge_has_vertex();
@@ -42,6 +52,7 @@ int main(int argc, char const *argv[]) {
     cout << msg;
   };
 
+
   DirectedGraph g;
   populate_graph(g);
   cout << g;
@@ -55,6 +66,9 @@ populate_graph(g2);
 string graph = (string)g2;
 
 cout << graph << endl;
+
+
+
   // display();
   return 0;
 };

@@ -44,3 +44,9 @@ Vertex::Vertex(const Vertex& old_copy){
       return is_equal;
 
     }
+
+    
+    ostream &operator<<(ostream &os, Vertex v){
+     os << "Vertex --> Id: " << v.m_id<< " " << v.m_value << endl;  
+      return os; 
+    }
