@@ -23,9 +23,9 @@ struct Test
     
   
     if(((g1 == g2) == true) && ((g1 == g3) == false))
-      cout << "Graph:\tTest: == Operator oveloading \t|PASSED\n";
+      cout << "Class: Graph:\tTest: == Operator oveloading \t|PASSED\n";
     else 
-      throw "Graph:\tTest: == Operator oveloading \t|FAILED\n";
+      throw "Class: Graph:\tTest: == Operator oveloading \t|FAILED\n";
 
    delete v1;
    delete v2;
@@ -53,10 +53,25 @@ struct Test
   if(g[0] == v)
     cout << "Class: Graph : \tTest: [] Operator overloading \t |PASSED\n";
   else 
-    throw "Class: Graph : \tTest: [] Operator overloading \t |PASSED\n";
+    throw "Class: Graph : \tTest: [] Operator overloading \t|FAILED\n";
  } 
 
+void to_string(){
+  Graph g;
+  populate_graph(g);
+  string s = string(g);
+  if(typeid(s) == typeid(string)){
+    cout << "Class: Graph : \tTest: string() Operator overloading \t|PASSED\n";
+    cout << s << "\n";
+  } else {throw "Class: Graph : \tTest: string() Operator overloading \t|FAILED\n";};
+}
 
+void print(){
+  Graph g;
+  populate_graph(g);
+  cout << "Class: Graph : \tTest: << Operator overloading \t|\n";
+  cout << g << endl;
+}
 //vertex class methods
 void vertex_constructor()
   {

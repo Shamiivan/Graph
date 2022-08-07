@@ -55,13 +55,13 @@
 //graph
 - [x] tesst operator == 
 - [x] implement operator == 
-- [] implement assignment operator
-- [] test operator =
+- [x] implement assignment operator
+- [x] test operator =
 - [] test operatt +(both)
 - [] implement operator ++
-- [] write test for []
-- [] write test for 
-- [] write test for string  
+- [x] write test for []
+- [] write test for cout
+- [x] write test for string  
 
 
 why does  == not work when constant are involved?

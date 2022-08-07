@@ -17,10 +17,15 @@ try{
   op_tests.equality();
   op_tests.assignment();
   op_tests.arr_subscript();
+  op_tests.to_string();
+  op_tests.print(); // test the << operator overloading function
   cout << "ALL operator overloading functions passed the tests " << endl;
 }catch(const char *msg) {
   cout << msg;
 };
+  
+
+  cout << endl << endl;
   try {
   Test test;
 		//tests related to Edge and Vertex class
