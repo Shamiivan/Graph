@@ -81,23 +81,26 @@ bool Graph::add_edge(Edge &e)
 
 	// check if the vertex already exist in the graph, if not add it to the graph
 	int index = search_vertex_index(*e.get_startPtr());
-	if(index == -1){
+	if (index == -1)
+	{
 		add_vertex(*e.get_startPtr());
-		startPtr = (vertices + (num_vertices - 1)); // get the pointer of the vertex 
-	}else if(index != -1){
+		startPtr = (vertices + (num_vertices - 1)); // get the pointer of the vertex
+	}
+	else if (index != -1)
+	{
 		startPtr = (vertices + index); // get the pointer of the vertex
 	}
 
-
-
 	int index_end = search_vertex_index(*e.get_endPtr());
-	if(index_end == -1){
+	if (index_end == -1)
+	{
 		add_vertex(*e.get_endPtr());
-		endPtr = (vertices + (num_vertices - 1)); // get the pointer of the vertex 
-	}else if(index_end != -1){
+		endPtr = (vertices + (num_vertices - 1)); // get the pointer of the vertex
+	}
+	else if (index_end != -1)
+	{
 		endPtr = (vertices + index_end); // get the pointer of the vertex
 	}
-	
 
 	// add the edge to the graph
 	edges[num_edges].set_vertices(startPtr, endPtr);
@@ -136,7 +139,7 @@ int Graph::search_vertex_index(Vertex &v)
 	return index;
 };
 
-bool Graph::search_edge(const Edge &edge)
+bool Graph::search_edge(Edge &edge)
 {
 	bool found = false;
 
@@ -148,7 +151,7 @@ bool Graph::search_edge(const Edge &edge)
 	return found;
 }
 
-int Graph::search_edge_index(const Edge &edge)
+int Graph::search_edge_index(Edge &edge)
 {
 	// returns the index of an edge in array of edges
 	int index = -1;
@@ -171,8 +174,7 @@ void Graph::display() const
 
 	std::cout << "Number of edges: " << num_edges << "\n";
 
-
-//display the edges
+	// display the edges
 	for (int i{0}; i < num_edges; i++)
 	{
 		int start_id = edges[i].get_startPtr()->get_id();
@@ -186,7 +188,6 @@ void Graph::display() const
 				  << " and value: " << end_value << "\n";
 	};
 }
-
 
 bool Graph::clean()
 {
@@ -219,7 +220,18 @@ bool Graph::add_edges(Edge *eArray, int size)
 	return true;
 }
 
+bool Graph::operator==(Graph &other) const
+{
+	if (num_edges != other.num_edges || num_vertices != other.num_vertices)
+		return false;
 
+	for (int i = 0; i < num_edges; i++)
+	{
+		if (edges[i] != other.edges[i])
+			return false;
+	}
+return true;
+}
 // Array subscript overload
 const Vertex &Graph::operator[](int i) const
 {
@@ -248,19 +260,20 @@ ostream &operator<<(ostream &os, Graph &g)
 	return os;
 };
 
+// return string representation of all edges in form, an edge is represented as (v1,v2)
+Graph::operator string() 
+{
 
-//return string representation of all edges in form, an edge is represented as (v1,v2)
-Graph::operator string() const{
-	
 	ostringstream os;
-	for(int i = 0; i < num_edges; i++){
+	for (int i = 0; i < num_edges; i++)
+	{
 		int start_id = edges[i].get_startPtr()->get_id();
 		int end_id = edges[i].get_endPtr()->get_id();
 
-		os << "(" << start_id << "," << end_id << ")" << " ";
+		os << "(" << start_id << "," << end_id << ")"
+		   << " ";
 	}
-	
-	return (os.str());
-	
 
+	return (os.str());
 }
+

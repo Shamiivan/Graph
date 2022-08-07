@@ -40,7 +40,7 @@ bool Edge::has_vertex(const Vertex &vertex){
 		return false;
 }
 
-bool Edge::operator==(const Edge &other) const {
+bool Edge::operator==(Edge &other) {
   //if any of the pointer are nullptr, it means edge is not connected
   if(other.startPtr == nullptr ||  other.endPtr == nullptr)
     return false;
@@ -49,4 +49,11 @@ bool Edge::operator==(const Edge &other) const {
   else{
     return false;
   }
+}
+
+bool Edge::operator!=(Edge& other) {
+  if( *this == other) 
+    return false;
+  else
+    return true;
 }

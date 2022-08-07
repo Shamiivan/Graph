@@ -53,10 +53,15 @@
 
 
 //graph
-- [x] refactor graph
-- [] refactor the add edge function
-- [] Add an operator
-- [x] implement operator string 
+- [x] tesst operator == 
+- [x] implement operator == 
+- [] implement assignment operator
+- [] test operator =
+- [] test operatt +(both)
+- [] implement operator ++
+- [] write test for []
+- [] write test for 
+- [] write test for string  
 
 
 why does  == not work when constant are involved?

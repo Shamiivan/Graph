@@ -25,7 +25,8 @@ public:
 	bool has_vertex(const Vertex &); //return true if the edge is connected to the vertex
 
 
-  bool operator==(const Edge &)const; //return true if the edge is the same 
+  bool operator != (Edge &); 
+  bool operator==(Edge &); //return true if the edge is the same 
 };
 
 #endif

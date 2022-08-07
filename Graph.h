@@ -42,23 +42,25 @@ class Graph{
         virtual bool add_edges(Edge *eArray, int size);
         virtual bool remove_edge(Edge& e);
 
-        virtual int search_edge_index(const Edge &e);
-        virtual bool search_edge(const Edge &e);//return bool if edges exist in a graph
+        virtual int search_edge_index(Edge &e);
+        virtual bool search_edge(Edge &e);//return true if edges exist in a graph
 
         // virtual void display(Vertex &v) =0; //display the path that contains the vert
 
         // virtual void display() =0; //display the path that contains the edge;
         
         virtual void display() const; //display the whole graph with your iwn defined format
-        virtual string to_string() const; //convert the whole graph to a string such as 1-2-4--5; 1-3-4; note: each different path is separeted by a ';'
+        // virtual string to_string() const; //convert the whole graph to a string such as 1-2-4--5; 1-3-4; note: each different path is separeted by a ';'
         virtual bool clean(); //remove all the vertices and edges
 
 
         //operator overloads
+        bool operator==(Graph &other) const;
+        void operator =(Graph &other);
         const Vertex& operator[](int) const;        
         friend ostream &operator<<(ostream &os, Graph &g);
 
-        operator string() const; // convert list of edges to a string
+        operator string(); // convert list of edges to a string
 
 
 };
