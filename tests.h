@@ -6,7 +6,7 @@
 void populate_graph(Graph &graph); // used to populate graphs 
 struct Test
 {
-  //includes all the tests for member functions and function oveloading:w
+  //includes all the tests for member functions and function oveloading
 
   void equality(){
     Graph g1;
@@ -23,9 +23,9 @@ struct Test
     
   
     if(((g1 == g2) == true) && ((g1 == g3) == false))
-      cout << "Graph : == \tTest: == Operator oveloading \t|PASSED\n";
+      cout << "Graph:\tTest: == Operator oveloading \t|PASSED\n";
     else 
-      throw "Graph :  == \tTest: == Operator oveloading \t|FAILED\n";
+      throw "Graph:\tTest: == Operator oveloading \t|FAILED\n";
 
    delete v1;
    delete v2;
@@ -40,12 +40,24 @@ struct Test
     g2=g1;
 
     if(g1==g2)
-      cout << "Class: Graph : = \tTest: = Operator oveloading \t|PASSED\n";
+      cout << "Class: Graph:\tTest: = Operator oveloading \t|PASSED\n";
     else
-      throw "Class: Graph :  = \tTest: = Operator oveloading \t|FAILED\n";
+      throw "Class: Graph:\tTest: = Operator oveloading \t|FAILED\n";
   }
 
+ void arr_subscript(){
+  Graph g;
+  Vertex v(10,1);
+  g.add_vertex(v);
 
+  if(g[0] == v)
+    cout << "Class: Graph : \tTest: [] Operator overloading \t |PASSED\n";
+  else 
+    throw "Class: Graph : \tTest: [] Operator overloading \t |PASSED\n";
+ } 
+
+
+//vertex class methods
 void vertex_constructor()
   {
     Vertex v(1, 20);
