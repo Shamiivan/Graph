@@ -1,0 +1,15 @@
+#Directed graph representing the course sequence pf
+5
+D
+coen 212
+coen 243
+coen 231
+coen 243
+coen 244 coen 243
+coen 311 coen 212 coen 243
+coen 313 coen 212 coen 231
+coen 316 coen 311 coen 313
+coen 317 coen 311 coen 313
+coen 320 coen 346
+coen 346 coen 352 coen 311
+coen 352 coen 231 coen 244
