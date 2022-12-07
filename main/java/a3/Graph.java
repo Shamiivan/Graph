@@ -154,9 +154,22 @@ public class Graph<V> {
         return (int) mark.getValueAtPos(vertPos);
     }
 
+
+
+    public boolean isPrerequesite(String sourceCourse, String destinationCourse){
+        int pos1 = courses.returnKey(sourceCourse);
+        int pos2 = courses.returnKey(destinationCourse);
+        return isEdge(pos1,pos2);
+    }
+
     boolean isEdge(int i, int j) {
+        //check for i and j
+        boolean vNothere =  i < 0 || i > numVertices || j < 0 || j > numVertices;
+        if(vNothere) return false;
         return matrix[i][j] != 0;
     }
+
+
 
 
     public void print(StringBuffer out) {
