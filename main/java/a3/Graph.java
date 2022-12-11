@@ -2,13 +2,13 @@ package a3;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class Graph<V> {
     private int numEdges;
     private int numVertices;
     private int[][] matrix;
-    private List<Integer> mark;
     private int[] count;
     private DDictionary courses;
     /*Constructors*/
@@ -25,7 +25,6 @@ public class Graph<V> {
     public void init(int _numVertices) {
         numEdges = 0;
         numVertices = _numVertices;
-        mark = new List<>(_numVertices);
         courses = new DDictionary(_numVertices);
         count = new int[_numVertices];
         matrix = new int[_numVertices][_numVertices];
@@ -37,8 +36,6 @@ public class Graph<V> {
      * BufferedReader : object that can read files
      * */
     Graph(BufferedReader reader) {
-        int VISITED = 1;
-        int UNVISITED = 0;
 
         try {
 
@@ -57,17 +54,12 @@ public class Graph<V> {
             }
 
 
+            //the first line without a comment contains information about the number of vertices
             token = new StringTokenizer(line); //break full string into individual words
-
-            // get the second line, it contains information about the number of vertices
             int numVertices = Integer.parseInt(token.nextToken());
 
+            //create graph with
             init(numVertices);
-
-            for (int i = 0; i < numVertices; i++) {
-                setMark(i, UNVISITED);
-            }
-
 
             //check for type of graph(directed or undirected)
             assert (line = reader.readLine()) != null :
@@ -79,7 +71,7 @@ public class Graph<V> {
                 undirected = false;
             else assert false : "Bad graph type: " + line;
 
-            //
+            //reade every line add the course into the matrix and create a new edge
             while ((line = reader.readLine()) != null) {
                 token = new StringTokenizer(line);
                 course = token.nextToken();
@@ -90,23 +82,87 @@ public class Graph<V> {
                 courses.insert(course);
                 courses.insert(prereq);
 
-
-
                 //get position of course and prer
                 int i= courses.returnKey(course);
                 int j= courses.returnKey(prereq);
-//                 System.out.println("Course : " + course + " Prereq:  " + prereq + " ");
-//                System.out.println(i + " " + j);
                 setEdge(i, j, 1);
-
             }
-
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
+
+    public String getPrerequisitesPath(String courseCode){
+        ArrayList<String>  path= new ArrayList<>();
+        String prereqPath = "";
+        String course = courseCode;
+        path.add(course);
+        while(hasPrerequesite(course)){
+            addToPath(path,course);
+            course = path.get(0);
+        }
+        //test is
+        if(path.size() == 1){
+            return null;
+        }
+        return path.toString();
+    }
+
+    //compare 2 course and determine if the first is the prereq of the second
+    public boolean isPrerequesite(String sourceCourse, String destinationCourse){
+        int pos1 = courses.returnKey(destinationCourse);
+        int pos2 = courses.returnKey(sourceCourse);
+        return isEdge(pos1,pos2);
+    }
+
+    //add the first prerequisite found
+    public ArrayList<String> addToPath(ArrayList<String> path, String courseCode){
+        int course = courses.returnKey(courseCode);
+        //loop through prereq and check if there is an edge
+        for(int prereq=0; prereq <numVertices; prereq++){
+            if(isEdge(course,prereq)){
+                String value = courses.returnValue(prereq);
+                path.add(0,value);
+                break;
+            }
+        }
+        return path;
+    }
+
+
+    //return true if a course has at least one prereq
+    public boolean hasPrerequesite(String courseCode){
+        int pos = courses.returnKey(courseCode);
+        for(int j=0; j <numVertices; j++){
+            if(isEdge(pos,j)) return true;
+        }
+        return false;
+    }
+    public void setEdge(int i, int j, int weight) {
+        assert weight > 0 : "Cannot set weight to 0 or negative number";
+        boolean thereIsNoEdge = !isEdge(i,j);
+        if (thereIsNoEdge) numEdges++;
+        matrix[i][j] = weight;
+    }
+
+
+
+    public int weight(int i, int j) {
+        return matrix[i][j];
+    }
+
+
+    boolean isEdge(int i, int j) {
+        //check for i and j
+        boolean vNotThere =  i < 0 || i > numVertices || j < 0 || j > numVertices;
+        if(vNotThere) return false;
+        return matrix[i][j] != 0;
+    }
+
+
+
 
     public int numberOfVertices() {
         return numVertices;
@@ -116,63 +172,12 @@ public class Graph<V> {
         return numEdges;
     }
 
-    /*Loop through the whole graph and return the first vertex connected to a given vertex */
-    public int firstNeighbor(int v1) {
-        for (int v2 = 0; v2 < numVertices; v2++) {
-            if (isEdge(v1, v2)) return v2;
-        }
-        return -1;
-    }
-
-    public int next(int vertex, int weight) {
-        return 0;
-    }
-
-    public void setEdge(int i, int j, int weight) {
-        assert weight > 0 : "Cannot set weight to 0 or negative number";
-        boolean thereIsNoEdge = !isEdge(i,j);
-        if (thereIsNoEdge) numEdges++;
-        matrix[i][j] = weight;
-    }
-
     public void delEdge(int i, int j) {
         matrix[i][j] = 0;
         numEdges--;
     }
-
-
-    public int weight(int i, int j) {
-        return matrix[i][j];
-    }
-
-    /*maps the matrix to other values */
-    public void setMark(int vertPos, int value) {
-        mark.setValue(vertPos, value);
-    }
-
-    public int getMark(int vertPos) {
-        return (int) mark.getValueAtPos(vertPos);
-    }
-
-
-
-    public boolean isPrerequesite(String sourceCourse, String destinationCourse){
-        int pos1 = courses.returnKey(sourceCourse);
-        int pos2 = courses.returnKey(destinationCourse);
-        return isEdge(pos1,pos2);
-    }
-
-    boolean isEdge(int i, int j) {
-        //check for i and j
-        boolean vNothere =  i < 0 || i > numVertices || j < 0 || j > numVertices;
-        if(vNothere) return false;
-        return matrix[i][j] != 0;
-    }
-
-
-
-
     public void print(StringBuffer out) {
+        out.append("Showing Adjecency matrix of graph\n");
         int i, j;
         for (i =0; i<numVertices; i++){
             out.append(courses.returnValue(i) + " ");
@@ -181,10 +186,6 @@ public class Graph<V> {
                 else out.append(weight(i,j) + " ");
             }
             out.append("\n");
-        }
-        out.append("List of vertices\n");
-        for(i=0; i< numVertices; i++){
-            out.append(courses.returnValue(i) + " ");
         }
     }
 }
